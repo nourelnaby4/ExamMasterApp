@@ -23,9 +23,18 @@ namespace ExamMaster.Persistence.Context
         {
         }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Instructor> Instructors { get; set; }
+        public DbSet<Level> Levels { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<SubjectLevel> SubjectLevels { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<SubjectLevel>().HasKey(e => new { e.SubjectId, e.LevelId });
+
+
             base.OnModelCreating(builder);
             builder.Entity<ApplicationUser>().ToTable("Users");
             builder.Entity<IdentityRole>().ToTable("Roles");
