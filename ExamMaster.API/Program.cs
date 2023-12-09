@@ -1,20 +1,24 @@
 using ExamMaster.Application;
 using ExamMaster.Persistence;
+using ExamMaster.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
 #region Dependencies
 builder.Services.AddApplicationDependencies()
-                .AddPersistenceDependencies(builder.Configuration);
+                .AddDomainDependencies()
+                .AddPersistenceDependencies(builder.Configuration)
+                .AddRegistrationModuleDependencies(builder.Configuration);
 #endregion
+
+
 
 
 var app = builder.Build();
