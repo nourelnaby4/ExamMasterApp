@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,9 @@ namespace ExamMaster.Domain.Entities
 {
     public class Subject
     {
-        public Subject() { 
+        public Subject() {
 
-            Levels = new HashSet<Level>();
+            SubjectLevels = new HashSet<SubjectLevel>();
         }
         public int Id { get; set; }
         [MaxLength(50)]
@@ -19,6 +20,7 @@ namespace ExamMaster.Domain.Entities
 
         public int TotalPoint { get; set; } = 0;
 
-        public virtual ICollection<Level> Levels { get; set;}
+        [InverseProperty(nameof(SubjectLevel.Subject))]
+        public virtual ICollection<SubjectLevel> SubjectLevels { get; set;}
     }
 }

@@ -16,12 +16,17 @@ namespace ExamMaster.Domain.Entities
         [Key]
         public int LevelId { get; set; }
 
-        public int TotalPoint { get; set; } = 0;
+        public int? ExamId { get; set; }
+        [ForeignKey(nameof(ExamId))]
+        [InverseProperty(nameof(Exam.SubjectLevel))]
+        public virtual Exam? Exam {  get; set; } 
 
         [ForeignKey(nameof(SubjectId))]
+        [InverseProperty(nameof(Subject.SubjectLevels))]
         public Subject Subject { get; set; }
 
         [ForeignKey(nameof(LevelId))]
+        [InverseProperty(nameof(Level.SubjectLevels))]
         public Level Level { get; set; }
 
     }

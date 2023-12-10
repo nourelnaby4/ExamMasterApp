@@ -4,6 +4,7 @@ using ExamMaster.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExamMaster.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231210234024_addExamToSubjectLeve")]
+    partial class addExamToSubjectLeve
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -121,12 +124,17 @@ namespace ExamMaster.Persistence.Migrations
                     b.Property<decimal>("ExamSuccessRate")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int?>("LevelId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LevelId");
 
                     b.ToTable("Exam");
                 });
@@ -143,6 +151,9 @@ namespace ExamMaster.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
+
+                    b.Property<int>("TotalPoint")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -404,6 +415,13 @@ namespace ExamMaster.Persistence.Migrations
                     b.Navigation("Question");
                 });
 
+            modelBuilder.Entity("ExamMaster.Domain.Entities.Exam", b =>
+                {
+                    b.HasOne("ExamMaster.Domain.Entities.Level", null)
+                        .WithMany("Exams")
+                        .HasForeignKey("LevelId");
+                });
+
             modelBuilder.Entity("ExamMaster.Domain.Entities.Question", b =>
                 {
                     b.HasOne("ExamMaster.Domain.Entities.Exam", "Exam")
@@ -521,12 +539,13 @@ namespace ExamMaster.Persistence.Migrations
 
                     b.Navigation("StudentExams");
 
-                    b.Navigation("SubjectLevel")
-                        .IsRequired();
+                    b.Navigation("SubjectLevel");
                 });
 
             modelBuilder.Entity("ExamMaster.Domain.Entities.Level", b =>
                 {
+                    b.Navigation("Exams");
+
                     b.Navigation("SubjectLevels");
                 });
 
