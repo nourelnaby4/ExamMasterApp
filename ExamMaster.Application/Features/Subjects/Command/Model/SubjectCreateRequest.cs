@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Features.Subject.Command.Model
+namespace ExamMaster.Application.Features.Subjects.Command.Model
 {
     public class SubjectCreateRequest : IRequest<Response<string>>
     {

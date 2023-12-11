@@ -19,8 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Subject\Command\Validations\" />
-    <Folder Include="Features\Subject\Queries\" />
+    <Folder Include="Features\Subjects\Queries\" />
   </ItemGroup>
 
 </Project>
