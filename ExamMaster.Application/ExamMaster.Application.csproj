@@ -18,4 +18,9 @@
     <ProjectReference Include="..\ExamMaster.Domain\ExamMaster.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Subject\Command\Validations\" />
+    <Folder Include="Features\Subject\Queries\" />
+  </ItemGroup>
+
 </Project>

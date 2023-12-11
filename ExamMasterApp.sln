@@ -15,11 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{893E992C-2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{82CF6B8B-BF0E-4661-8D41-3352495446C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamMaster.API", "ExamMaster.API\ExamMaster.API.csproj", "{AEB8A711-F096-4799-B793-C4EA6F8F2F28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamMaster.API", "ExamMaster.API\ExamMaster.API.csproj", "{AEB8A711-F096-4799-B793-C4EA6F8F2F28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamMaster.Application", "ExamMaster.Application\ExamMaster.Application.csproj", "{0CEF8E83-0517-4004-9B51-E4DAA8AC1E4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamMaster.Application", "ExamMaster.Application\ExamMaster.Application.csproj", "{0CEF8E83-0517-4004-9B51-E4DAA8AC1E4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamMaster.Persistence", "ExamMaster.Persistence\ExamMaster.Persistence.csproj", "{6F5649BF-521F-4978-9755-5D0381E0DFDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamMaster.Persistence", "ExamMaster.Persistence\ExamMaster.Persistence.csproj", "{6F5649BF-521F-4978-9755-5D0381E0DFDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

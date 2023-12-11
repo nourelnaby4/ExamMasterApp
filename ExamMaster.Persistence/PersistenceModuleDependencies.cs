@@ -1,6 +1,8 @@
 ﻿
+using ExamMaster.Application.Contracts;
 using ExamMaster.Domain.Entities;
 using ExamMaster.Persistence.Context;
+using ExamMaster.Persistence.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +18,8 @@ namespace ExamMaster.Persistence
     {
         public static IServiceCollection AddPersistenceDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-           
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient(typeof(IBaseRepo<>), typeof(BaseRepo<>));
             return services;
         }
     }
