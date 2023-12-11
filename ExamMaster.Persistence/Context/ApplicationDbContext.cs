@@ -23,7 +23,6 @@ namespace ExamMaster.Persistence.Context
         {
         }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-        public DbSet<Student> Students { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Level> Levels { get; set; }
         public DbSet<Question> Questions { get; set; }

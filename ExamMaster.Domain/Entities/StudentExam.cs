@@ -21,9 +21,11 @@ namespace ExamMaster.Domain.Entities
         public bool IsSuccess { get; set; } = false;
 
         [ForeignKey(nameof(StudentId))]
+        [InverseProperty(nameof(ApplicationUser.StudentExams))]
         public virtual ApplicationUser Student { get; set; }
 
         [ForeignKey(nameof(ExamId))]
+        [InverseProperty(nameof(Exam.StudentExams))]
         public virtual Exam Exam { get; set; }
     }
 }

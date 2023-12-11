@@ -4,6 +4,7 @@ using ExamMaster.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExamMaster.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231210235413_remove StudentTable")]
+    partial class removeStudentTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +45,7 @@ namespace ExamMaster.Persistence.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Answer", (string)null);
+                    b.ToTable("Answer");
                 });
 
             modelBuilder.Entity("ExamMaster.Domain.Entities.ApplicationUser", b =>
@@ -128,7 +131,7 @@ namespace ExamMaster.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Exam", (string)null);
+                    b.ToTable("Exam");
                 });
 
             modelBuilder.Entity("ExamMaster.Domain.Entities.Level", b =>
@@ -146,7 +149,7 @@ namespace ExamMaster.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Levels", (string)null);
+                    b.ToTable("Levels");
                 });
 
             modelBuilder.Entity("ExamMaster.Domain.Entities.Question", b =>
@@ -175,7 +178,7 @@ namespace ExamMaster.Persistence.Migrations
 
                     b.HasIndex("ExamId");
 
-                    b.ToTable("Questions", (string)null);
+                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("ExamMaster.Domain.Entities.StudentExam", b =>
@@ -196,7 +199,7 @@ namespace ExamMaster.Persistence.Migrations
 
                     b.HasIndex("ExamId");
 
-                    b.ToTable("StudentExams", (string)null);
+                    b.ToTable("StudentExams");
                 });
 
             modelBuilder.Entity("ExamMaster.Domain.Entities.Subject", b =>
@@ -217,7 +220,7 @@ namespace ExamMaster.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Subjects", (string)null);
+                    b.ToTable("Subjects");
                 });
 
             modelBuilder.Entity("ExamMaster.Domain.Entities.SubjectLevel", b =>
@@ -239,7 +242,7 @@ namespace ExamMaster.Persistence.Migrations
 
                     b.HasIndex("LevelId");
 
-                    b.ToTable("SubjectLevels", (string)null);
+                    b.ToTable("SubjectLevels");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
