@@ -11,11 +11,21 @@ namespace ExamMaster.Persistence.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
+        #region fields
+        public ISubjectRepo Subject { get; private set; }
         private readonly ApplicationDbContext _context;
+        #endregion
+
+        #region constructors
         public UnitOfWork(ApplicationDbContext context)
-        { 
+        {
             _context = context;
+            Subject = new SubjectRepo(_context);
         }
+        #endregion
+
+
+        #region functions
         public IDbContextTransaction BeginTransaction()
         {
             return _context.Database.BeginTransaction();
@@ -40,5 +50,6 @@ namespace ExamMaster.Persistence.Repositories
         {
             _context.Dispose();
         }
+        #endregion
     }
 }
