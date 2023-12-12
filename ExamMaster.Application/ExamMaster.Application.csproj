@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Subjects\Queries\" />
+    <Folder Include="Features\Subjects\Command\Model\Responses\" />
   </ItemGroup>
 
 </Project>

@@ -40,7 +40,11 @@ namespace ExamMaster.Persistence.Repositories
 
             return await _context.Set<T>().FindAsync(id);
         }
+        public virtual async Task<IEnumerable< T>> GetAllAsync()
+        {
 
+            return await _context.Set<T>().ToListAsync();
+        }
         public virtual async Task<T> AddAsync(T entity)
         {
             await _context.Set<T>().AddAsync(entity);

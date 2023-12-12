@@ -1,10 +1,10 @@
-﻿using AVMS.Application.Common.Model;
+﻿
+using AVMS.Application.Common.Model;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using System.Net;
-using System.Security.Authentication;
 using System.Text.Json;
 
 namespace AVMS.Application.Middleware
@@ -41,7 +41,14 @@ namespace AVMS.Application.Middleware
 
                         break;
 
-                    case ValidationException e:
+                       
+                    case FluentValidation.ValidationException e:
+                        // custom validation error
+                        responseModel.Message = error.Message;
+                        responseModel.StatusCode = HttpStatusCode.UnprocessableEntity;
+                        response.StatusCode = (int)HttpStatusCode.UnprocessableEntity;
+                        break;
+                    case System.ComponentModel.DataAnnotations.ValidationException e:
                         // custom validation error
                         responseModel.Message = error.Message;
                         responseModel.StatusCode = HttpStatusCode.UnprocessableEntity;

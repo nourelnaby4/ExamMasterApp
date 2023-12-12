@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ExamMaster.Application.Features.Subjects.Command.Model;
+using ExamMaster.Application.Features.Subjects.Command.Model.Requests;
 using ExamMaster.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,6 +15,7 @@ namespace ExamMaster.Application.Features.Subjects.Command.Mapping
         public SubjectCommandMapping()
         {
             CreateSubject();
+            EditSubject();
         
         }
         #endregion
@@ -23,6 +24,11 @@ namespace ExamMaster.Application.Features.Subjects.Command.Mapping
         public void CreateSubject()
         {
             CreateMap<SubjectCreateRequest, Subject>();
+        }
+
+        public void EditSubject()
+        {
+            CreateMap<SubjectEditRequest, Subject>();
         }
         #endregion
     }

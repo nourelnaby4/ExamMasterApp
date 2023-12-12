@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AVMS.Application.Common.Model;
 using ExamMaster.Application.Contracts;
-using ExamMaster.Application.Features.Subjects.Command.Model;
+using ExamMaster.Application.Features.Subjects.Command.Model.Requests;
 using ExamMaster.Domain.Entities;
 using MediatR;
 using System;
@@ -13,7 +13,10 @@ using System.Threading.Tasks;
 namespace ExamMaster.Application.Features.Subjects.Command.Handler
 {
     public class SubjectCommandHandler : ResponseHandler,
-                                        IRequestHandler<SubjectCreateRequest, Response<string>>
+                                        IRequestHandler<SubjectCreateRequest, Response<string>>,
+                                        IRequestHandler<SubjectEditRequest, Response<string>>,
+                                        IRequestHandler<SubjectDeleteRequest, Response<string>>
+
     {
 
         #region fields
@@ -41,6 +44,34 @@ namespace ExamMaster.Application.Features.Subjects.Command.Handler
             return Created("created successfully");
 
 
+        }
+
+        public async Task<Response<string>> Handle(SubjectEditRequest request, CancellationToken cancellationToken)
+        {
+            var subject = await _repo.Subject.GetByIdAsync(request.Id);
+
+            if (subject == null)
+                return BadRequest<string>("Subject is not found");
+
+            var model = _mapper.Map(request, subject);
+            _repo.Subject.Update(model);
+            await _repo.SaveChangesAsync();
+
+            return EditSuccess("Edit successfully");
+        }
+
+        public async Task<Response<string>> Handle(SubjectDeleteRequest request, CancellationToken cancellationToken)
+        {
+            var subject = await _repo.Subject.GetByIdAsync(request.Id);
+
+            if (subject == null)
+                return BadRequest<string>("Subject is not found");
+
+            
+            _repo.Subject.Delete(subject);
+            await _repo.SaveChangesAsync();
+
+            return Deleted<string>();
         }
         #endregion
     }
