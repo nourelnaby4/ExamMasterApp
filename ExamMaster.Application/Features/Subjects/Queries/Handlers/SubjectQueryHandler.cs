@@ -46,7 +46,8 @@ namespace ExamMaster.Application.Features.Subjects.Queries.Handlers
         public async Task<Response<IEnumerable<SubjectGetResponse>>> Handle(SubjectGetAllRequest request, CancellationToken cancellationToken)
         {
             var subject = await _repo.Subject.GetAllAsync();
-            
+            if (subject.Count() == 0)
+                return Success(new List<SubjectGetResponse>().AsEnumerable());
 
             var response = _mapper.Map<IEnumerable< SubjectGetResponse>>(subject);
             return Success(response);

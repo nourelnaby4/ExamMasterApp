@@ -11,6 +11,7 @@ namespace ExamMaster.Application.Contracts
     {
         #region fields
         ISubjectRepo Subject { get; }
+        ILevelRepo Level { get; }
         #endregion
 
         #region functions

@@ -5,18 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Features.Subjects.Queries.Models.Response
+namespace ExamMaster.Application.Features.Levels.Queries.Models.Response
 {
-    public class SubjectGetResponse
+    public class LevelGetResponse 
     {
         public int Id { get; private set; }
         public string Name { get; private set; }
-        public int TotalPoint { get; private set; }
-        public SubjectGetResponse(int id, string name, int totalPoint)
+        public LevelGetResponse(int id, string name)
         {
             Id = id;
             Name = name;
-            TotalPoint = totalPoint;
 
         }
     }

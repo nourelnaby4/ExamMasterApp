@@ -13,6 +13,7 @@ namespace ExamMaster.Persistence.Repositories
     {
         #region fields
         public ISubjectRepo Subject { get; private set; }
+        public ILevelRepo Level { get; private set; }
         private readonly ApplicationDbContext _context;
         #endregion
 
@@ -21,6 +22,7 @@ namespace ExamMaster.Persistence.Repositories
         {
             _context = context;
             Subject = new SubjectRepo(_context);
+            Level = new LevelRepo(_context);
         }
         #endregion
 
