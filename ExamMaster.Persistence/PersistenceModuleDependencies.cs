@@ -18,8 +18,8 @@ namespace ExamMaster.Persistence
     {
         public static IServiceCollection AddPersistenceDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddTransient(typeof(IBaseRepo<>), typeof(BaseRepo<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(IBaseRepo<>), typeof(BaseRepo<>));
             return services;
         }
     }

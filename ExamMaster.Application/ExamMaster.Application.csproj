@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\Questions\**" />
     <Compile Remove="Features\Subjects - Copy\**" />
+    <EmbeddedResource Remove="Features\Questions\**" />
     <EmbeddedResource Remove="Features\Subjects - Copy\**" />
+    <None Remove="Features\Questions\**" />
     <None Remove="Features\Subjects - Copy\**" />
   </ItemGroup>
 
@@ -25,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Exams\Queries\" />
     <Folder Include="Features\Subjects\Command\Model\Responses\" />
   </ItemGroup>
 

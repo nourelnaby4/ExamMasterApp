@@ -3,7 +3,7 @@ using AVMS.Application.Common.Model;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
+
 using System.Net;
 using System.Text.Json;
 
@@ -45,14 +45,14 @@ namespace AVMS.Application.Middleware
                     case FluentValidation.ValidationException e:
                         // custom validation error
                         responseModel.Message = error.Message;
-                        responseModel.StatusCode = HttpStatusCode.UnprocessableEntity;
-                        response.StatusCode = (int)HttpStatusCode.UnprocessableEntity;
+                        responseModel.StatusCode = HttpStatusCode.BadRequest;
+                        response.StatusCode = (int)HttpStatusCode.BadRequest;
                         break;
                     case System.ComponentModel.DataAnnotations.ValidationException e:
                         // custom validation error
                         responseModel.Message = error.Message;
-                        responseModel.StatusCode = HttpStatusCode.UnprocessableEntity;
-                        response.StatusCode = (int)HttpStatusCode.UnprocessableEntity;
+                        responseModel.StatusCode = HttpStatusCode.BadRequest;
+                        response.StatusCode = (int)HttpStatusCode.BadRequest;
                         break;
                     case KeyNotFoundException e:
                         // not found error

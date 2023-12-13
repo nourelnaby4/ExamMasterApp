@@ -19,7 +19,7 @@ namespace ExamMaster.Domain.Entities
         [Key]
         public int Id { get; set; }
         [MaxLength(50)]
-        public string Name { get; set; }
+        public string Title { get; set; }
 
         [Range(0, 100, ErrorMessage = "Exam Success Rate must be between 0 and 100")]
         public decimal ExamSuccessRate { get; set; }

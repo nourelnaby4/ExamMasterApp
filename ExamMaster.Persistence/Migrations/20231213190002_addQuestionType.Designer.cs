@@ -4,6 +4,7 @@ using ExamMaster.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExamMaster.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231213190002_addQuestionType")]
+    partial class addQuestionType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,7 +127,7 @@ namespace ExamMaster.Persistence.Migrations
                     b.Property<decimal>("ExamSuccessRate")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -199,13 +202,6 @@ namespace ExamMaster.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("QuestionType");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            TypeName = "Choices"
-                        });
                 });
 
             modelBuilder.Entity("ExamMaster.Domain.Entities.StudentExam", b =>

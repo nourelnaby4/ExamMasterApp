@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Xml.Linq;
+using System.Reflection.Emit;
 
 namespace ExamMaster.Persistence.Context
 {
@@ -36,6 +37,12 @@ namespace ExamMaster.Persistence.Context
 
 
             base.OnModelCreating(builder);
+            // Other configurations...
+
+            builder.Entity<QuestionType>().HasData(
+                new QuestionType { Id=1, TypeName = "Choices" }
+            );
+
             builder.Entity<ApplicationUser>().ToTable("Users");
             builder.Entity<IdentityRole>().ToTable("Roles");
             builder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims");

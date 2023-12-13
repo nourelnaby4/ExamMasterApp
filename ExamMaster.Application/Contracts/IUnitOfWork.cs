@@ -10,11 +10,16 @@ namespace ExamMaster.Application.Contracts
     public interface IUnitOfWork : IDisposable
     {
         #region fields
+
         ISubjectRepo Subject { get; }
         ILevelRepo Level { get; }
+        IExamRepo Exam { get; }
+        ISubjectLevelRepo SubjectLevel { get; }
+
         #endregion
 
         #region functions
+
         IDbContextTransaction BeginTransaction();
         void Commit();
         void RollBack();

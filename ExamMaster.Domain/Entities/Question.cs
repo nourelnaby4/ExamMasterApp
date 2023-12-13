@@ -12,7 +12,7 @@ namespace ExamMaster.Domain.Entities
     {
         public Question()
         {
-            Answers = new HashSet<Answer>();
+            Choices = new HashSet<Choice>();
         }
         [Key]
         public int Id { get; set; }
@@ -21,15 +21,17 @@ namespace ExamMaster.Domain.Entities
         public string Content { get; set; }
 
         public int Point { get; set; } = 5;
-        public int CorrectAnswerId {  get; set; }
 
-        public int ExamId { get;set; }
+        public int? ExamId { get;set; }
 
+        public int QuestionTypeId { get; set; }
 
+        [ForeignKey(nameof(QuestionTypeId))]
+        [InverseProperty(nameof(QuestionType.Questions))]
+        public QuestionType QuestionType { get; set; }
 
-
-        [InverseProperty(nameof(Answer.Question))]
-        public ICollection<Answer> Answers { get; set; }
+        [InverseProperty(nameof(Choice.Question))]
+        public ICollection<Choice>? Choices { get; set; }
 
         [ForeignKey(nameof(ExamId))]
         [InverseProperty(nameof(Exam.Questions))]

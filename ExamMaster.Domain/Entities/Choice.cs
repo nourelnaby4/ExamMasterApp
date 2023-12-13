@@ -8,16 +8,19 @@ using System.Threading.Tasks;
 
 namespace ExamMaster.Domain.Entities
 {
-    public class Answer
+    public class Choice
     {
+        [Key]
         public int Id { get; set; }
         [MaxLength(30)]
         public string Content { get; set; }
 
+        public bool IsCorrect { get; set; }
+
         public int QuestionId { get; set; }
 
         [ForeignKey(nameof(QuestionId))]
-        [InverseProperty(nameof(Question.Answers))]
+        [InverseProperty(nameof(Question.Choices))]
         public Question Question { get; set; }
 
 
