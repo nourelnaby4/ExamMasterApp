@@ -15,7 +15,8 @@ namespace ExamMaster.Application.Contracts
         ILevelRepo Level { get; }
         IExamRepo Exam { get; }
         ISubjectLevelRepo SubjectLevel { get; }
-
+        public IQuestionsRepo Question { get; }
+        public IChoiceRepo Chioce { get; }
         #endregion
 
         #region functions

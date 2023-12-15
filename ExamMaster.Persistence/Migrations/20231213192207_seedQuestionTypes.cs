@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using ExamMaster.Application.Common.Consts;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -13,7 +14,7 @@ namespace ExamMaster.Persistence.Migrations
             migrationBuilder.InsertData(
                 table: "QuestionType",
                 columns: new[] { "Id", "TypeName" },
-                values: new object[] { 1, "Choices" });
+                values: new object[] { QuestionTypeEnum.Choices,nameof(QuestionTypeEnum.Choices) });
         }
 
         /// <inheritdoc />

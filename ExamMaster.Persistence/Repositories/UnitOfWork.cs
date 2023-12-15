@@ -16,6 +16,8 @@ namespace ExamMaster.Persistence.Repositories
         public ILevelRepo Level { get; private set; }
         public IExamRepo Exam { get; private set; }
         public ISubjectLevelRepo SubjectLevel { get; private set; }
+        public IQuestionsRepo Question { get; private set; }
+        public IChoiceRepo Chioce { get; private set; }
         private readonly ApplicationDbContext _context;
         #endregion
 
@@ -27,6 +29,9 @@ namespace ExamMaster.Persistence.Repositories
             Level = new LevelRepo(_context);
             SubjectLevel = new SubjectLevelRepo(_context);
             Exam = new ExamRepo(_context);
+            Question= new QuestionRepo(_context);
+            Chioce = new ChoiceRepo(_context);
+
         }
         #endregion
 
