@@ -25,13 +25,19 @@ namespace ExamMaster.Domain.Entities
         public decimal ExamSuccessRate { get; set; }
 
 
+        public virtual int LevelId { get; set; }
+        public virtual int SubjectId { get; set; }
 
-        
-        [InverseProperty(nameof(SubjectLevel.Exam))]
-        public virtual SubjectLevel SubjectLevel { get; set; }
+        [ForeignKey(nameof(SubjectId))]
+        [InverseProperty(nameof(Subject.Exams))]
+        public virtual Subject Subject { get; set; }
 
-    
-     
+
+   
+
+        [ForeignKey(nameof(LevelId))]
+        [InverseProperty(nameof(Level.Exams))]
+        public virtual Level Level { get; set; }
 
         [InverseProperty(nameof(Question.Exam))]
         public virtual ICollection<Question> Questions { get; set; }

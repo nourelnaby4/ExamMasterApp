@@ -39,19 +39,19 @@ namespace ExamMaster.Application.Features.Exams.Commands.Validator
             RuleFor(x => x.Id)
                .NotNull()
                .NotEmpty()
-               .MustAsync(async (key, CancellationToken) => await _repo.Exam.IsExistAsync(x => x.Id == key));
+               .MustAsync(async (key, CancellationToken) => await _repo.Exam.IsExistAsync(x => x.Id == key)).WithMessage("Exam Id Not Exist");
 
 
             RuleFor(x => x.LevelId)
                 .NotNull()
                 .NotEmpty()
-                .MustAsync(async (key, CancellationToken) => await _repo.Level.IsExistAsync(x => x.Id == key));
+                .MustAsync(async (key, CancellationToken) => await _repo.Level.IsExistAsync(x => x.Id == key)).WithMessage("Level Id Not Exist");
 
 
             RuleFor(x => x.SubjectId)
                .NotNull()
                .NotEmpty()
-               .MustAsync(async (key, CancellationToken) => await _repo.Level.IsExistAsync(x => x.Id == key));
+               .MustAsync(async (key, CancellationToken) => await _repo.Subject.IsExistAsync(x => x.Id == key)).WithMessage("Subject Id Not Exist");
         }
     }
 }

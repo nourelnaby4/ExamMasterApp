@@ -15,7 +15,8 @@ namespace ExamMaster.Application.Features.Exams.Commands.Handler
 {
     public class ExamCommandHandler : ResponseHandler,
                                      IRequestHandler<ExamCreateRequest, Response<string>>,
-                                     IRequestHandler<ExamEditRequest, Response<string>>
+                                     IRequestHandler<ExamEditRequest, Response<string>>,
+                                     IRequestHandler<ExamDeleteRequest, Response<string>>
 
     {
         #region fields
@@ -36,60 +37,45 @@ namespace ExamMaster.Application.Features.Exams.Commands.Handler
         #region actions
         public async Task<Response<string>> Handle(ExamCreateRequest request, CancellationToken cancellationToken)
         {
-            var trasn = _repo.BeginTransaction();
-            try
-            {
-
-                var exam = _mapper.Map<Exam>(request);
-                await _repo.Exam.AddAsync(exam);
-
-                var subjectLevel = new SubjectLevel()
-                {
-                    SubjectId = request.SubjectId,
-                    LevelId = request.LevelId,
-                    Exam = exam
-                };
-
-                await _repo.SubjectLevel.AddAsync(subjectLevel);
-
-
-                await _repo.SaveChangesAsync();
-                await trasn.CommitAsync(cancellationToken);
-
-                return Created("Success");
-            }
-            catch (Exception ex)
-            {
-                await trasn.RollbackAsync();
-                throw;
-            }
+            var exam = _mapper.Map<Exam>(request);
+            await _repo.Exam.AddAsync(exam);
+            await _repo.SaveChangesAsync();
+            return Created("Success");
 
         }
-
         public async Task<Response<string>> Handle(ExamEditRequest request, CancellationToken cancellationToken)
         {
-            var trasn = _repo.BeginTransaction();
-            try
+            var exam = await _repo.Exam.GetByIdAsync(request.Id);
+
+            if (exam != null)
             {
-                var exam = await _repo.Exam.GetTableAsTracking()
-                    .Include(x=>x.SubjectLevel)
-                    .SingleOrDefaultAsync(x=>x.Id==request.Id);
-
-                var examEdited = _mapper.Map( request ,exam);
-                 _repo.Exam.Update(examEdited);
-                 _repo.SubjectLevel.Update(examEdited.SubjectLevel);
+                var model = _mapper.Map(request, exam);
+                _repo.Exam.Update(model);
                 await _repo.SaveChangesAsync();
-
-
-                await _repo.SaveChangesAsync();
-                await trasn.CommitAsync(cancellationToken);
 
                 return EditSuccess("Success");
             }
-            catch (Exception ex)
+            else
             {
-                await trasn.RollbackAsync();
-                throw;
+                return NotFound<string>("exam not found");
+            }
+        }
+
+        public async Task<Response<string>> Handle(ExamDeleteRequest request, CancellationToken cancellationToken)
+        {
+            var exam = await _repo.Exam.GetByIdAsync(request.Id);
+
+            if (exam != null)
+            {
+               
+                _repo.Exam.Update(exam);
+                await _repo.SaveChangesAsync();
+
+                return Deleted<string>();
+            }
+            else
+            {
+                return NotFound<string>("exam not found");
             }
         }
         #endregion

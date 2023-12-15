@@ -46,17 +46,23 @@ namespace AVMS.Application.Middleware
                         // custom validation error
                         responseModel.Message = error.Message;
                         responseModel.StatusCode = HttpStatusCode.BadRequest;
+                        responseModel.Message += e.InnerException == null ? "" : "\n" + e.InnerException.Message;
+
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
                         break;
                     case System.ComponentModel.DataAnnotations.ValidationException e:
                         // custom validation error
                         responseModel.Message = error.Message;
+                        responseModel.Message += e.InnerException == null ? "" : "\n" + e.InnerException.Message;
+
                         responseModel.StatusCode = HttpStatusCode.BadRequest;
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
                         break;
                     case KeyNotFoundException e:
                         // not found error
                         responseModel.Message = error.Message; ;
+                        responseModel.Message += e.InnerException == null ? "" : "\n" + e.InnerException.Message;
+
                         responseModel.StatusCode = HttpStatusCode.NotFound;
                         response.StatusCode = (int)HttpStatusCode.NotFound;
                         break;
@@ -64,6 +70,7 @@ namespace AVMS.Application.Middleware
                     case DbUpdateException e:
                         // can't update error
                         responseModel.Message = e.Message;
+                        responseModel.Message += e.InnerException == null ? "" : "\n" + e.InnerException.Message;
                         responseModel.StatusCode = HttpStatusCode.BadRequest;
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
                         break;
@@ -85,6 +92,7 @@ namespace AVMS.Application.Middleware
                     default:
                         // unhandled error
                         responseModel.Message = error.Message;
+
                         responseModel.StatusCode = HttpStatusCode.InternalServerError;
                         response.StatusCode = (int)HttpStatusCode.InternalServerError;
                         break;

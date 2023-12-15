@@ -1,5 +1,6 @@
 ﻿using ExamMaster.API.Base;
 using ExamMaster.Application.Features.Exams.Commands.Models;
+using ExamMaster.Application.Features.Exams.Queries.Models.Requests;
 using ExamMaster.Application.Features.Levels.Queries.Models.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -26,6 +27,21 @@ namespace ExamMaster.API.Controllers
 
 
         #region actions
+        [HttpGet("get-byId")]
+        public async Task<IActionResult> Get([FromQuery] int ExamId)
+        {
+
+            var result = await _mediator.Send(new ExamGetByIdRequest(ExamId));
+            return GetResponse(result);
+        }
+        [HttpGet("get-all")]
+        public async Task<IActionResult> GetAll()
+        {
+
+            var result = await _mediator.Send(new ExamGetAllRequest());
+            return GetResponse(result);
+        }
+
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] ExamCreateRequest request)
         {
@@ -39,6 +55,14 @@ namespace ExamMaster.API.Controllers
         {
 
             var result = await _mediator.Send(request);
+            return GetResponse(result);
+        }
+
+        [HttpDelete("delete")]
+        public async Task<IActionResult> Delete([FromQuery] int ExamId)
+        {
+
+            var result = await _mediator.Send(new ExamDeleteRequest(ExamId));
             return GetResponse(result);
         }
         #endregion

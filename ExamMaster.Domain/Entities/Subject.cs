@@ -11,7 +11,7 @@ namespace ExamMaster.Domain.Entities
     public class Subject
     {
         public Subject() {
-
+            Exams = new HashSet<Exam>();
             SubjectLevels = new HashSet<SubjectLevel>();
         }
         public int Id { get; set; }
@@ -19,6 +19,10 @@ namespace ExamMaster.Domain.Entities
         public string Name { get; set; }
 
         public int TotalPoint { get; set; } = 0;
+
+
+        [InverseProperty(nameof(Exam.Subject))]
+        public virtual ICollection<Exam> Exams { get; set; }
 
         [InverseProperty(nameof(SubjectLevel.Subject))]
         public virtual ICollection<SubjectLevel> SubjectLevels { get; set;}

@@ -9,5 +9,6 @@ namespace ExamMaster.Application.Contracts
 {
     public interface IExamRepo : IBaseRepo<Exam>
     {
+        Task<IEnumerable<Exam>> GetALL();
     }
 }
