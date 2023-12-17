@@ -37,9 +37,11 @@ namespace ExamMaster.Application.Features.Exams.Queries.Handler
 
         public async Task<Response<IEnumerable<ExamGetResponse>>> Handle(ExamGetAllRequest request, CancellationToken cancellationToken)
         {
-            var exams = await _repo.Exam.GetALL();
-            var mapping = _mapper.Map<IEnumerable<ExamGetResponse>>(exams);
+            var exams = request.LevelId is null? await _repo.Exam.GetAsync(request.SubjectId)
+                                               : await _repo.Exam.GetAsync(request.SubjectId,request.LevelId);
 
+
+            var mapping = _mapper.Map<IEnumerable<ExamGetResponse>>(exams);
             return Success(mapping);
         }
 

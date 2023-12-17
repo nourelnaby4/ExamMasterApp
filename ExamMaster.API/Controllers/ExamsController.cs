@@ -35,10 +35,10 @@ namespace ExamMaster.API.Controllers
             return GetResponse(result);
         }
         [HttpGet("get-all")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] int subjectId,int? levelId)
         {
 
-            var result = await _mediator.Send(new ExamGetAllRequest());
+            var result = await _mediator.Send(new ExamGetAllRequest(subjectId,levelId));
             return GetResponse(result);
         }
 

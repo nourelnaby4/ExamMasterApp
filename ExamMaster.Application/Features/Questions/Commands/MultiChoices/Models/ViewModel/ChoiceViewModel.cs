@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Features.Questions.MultiChoices.Commands.Models.ViewModel
+namespace ExamMaster.Application.Features.Questions.Commands.MultiChoices.Models.ViewModel
 {
     public class ChoiceViewModel
     {

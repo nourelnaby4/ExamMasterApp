@@ -1,4 +1,4 @@
-﻿using ExamMaster.Application.Features.Questions.MultiChoices.Commands.Models.Requsets;
+﻿using ExamMaster.Application.Features.Questions.Commands.MultiChoices.Models.Requsets;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -6,17 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Features.Questions.MultiChoices.Commands.Validations
+namespace ExamMaster.Application.Features.Questions.Commands.MultiChoices.Validations
 {
-    public class MultiChoiceCreateValidator : AbstractValidator<MultiChoiceCreateRequest>
+    public class MultiChoiceEditValidator : AbstractValidator<MultiChoiceEditRequest>
     {
-        public MultiChoiceCreateValidator()
+        public MultiChoiceEditValidator()
         {
-            ApplyCreateMultiChoice();
-            ApplyCustomCreateMultiChoice();
+            ApplyEditMultiChoice();
+            ApplyCustomEditMultiChoice();
 
         }
-        private void ApplyCreateMultiChoice()
+        private void ApplyEditMultiChoice()
         {
             RuleFor(x => x.Question)
                 .NotNull()
@@ -36,7 +36,8 @@ namespace ExamMaster.Application.Features.Questions.MultiChoices.Commands.Valida
 
         }
 
-        private void ApplyCustomCreateMultiChoice()
+
+        private void ApplyCustomEditMultiChoice()
         {
             RuleFor(x => x.Answers)
                 .Must((key, CancellationTokenSource) => key.Answers.Count() == 4).WithMessage("choies count must be 4 choise only");

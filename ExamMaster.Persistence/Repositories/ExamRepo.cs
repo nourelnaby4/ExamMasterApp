@@ -17,9 +17,19 @@ namespace ExamMaster.Persistence.Repositories
         {
             _context = context;
         }
-        public async Task<IEnumerable< Exam>> GetALL()
+        public async Task<IEnumerable< Exam>> GetAsync(int subjectId)
         {
-           return  await _context.Exam. Include(x => x.Level).Include(x=> x.Subject).ToListAsync();
+           return  await _context.Exam.Where(x=>x.SubjectId==subjectId)
+                                      .Include(x => x.Level)
+                                      .Include(x=> x.Subject)
+                                      .ToListAsync();
+        }
+        public async Task<IEnumerable<Exam>> GetAsync(int subjectId,int? levelId)
+        {
+            return await _context.Exam.Where(x => x.SubjectId == subjectId && x.LevelId==levelId)
+                                      .Include(x => x.Level)
+                                      .Include(x => x.Subject)
+                                      .ToListAsync();
         }
         public override async Task<Exam> GetByIdAsync(int id)
         {

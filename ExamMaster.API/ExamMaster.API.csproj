@@ -19,6 +19,7 @@
     <ProjectReference Include="..\ExamMaster.Application\ExamMaster.Application.csproj" />
     <ProjectReference Include="..\ExamMaster.Domain\ExamMaster.Domain.csproj" />
     <ProjectReference Include="..\ExamMaster.Persistence\ExamMaster.Persistence.csproj" />
+    <ProjectReference Include="..\ExamMaster.Service\ExamMaster.Service.csproj" />
   </ItemGroup>
 
 </Project>

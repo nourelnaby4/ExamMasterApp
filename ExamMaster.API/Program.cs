@@ -1,6 +1,7 @@
 using ExamMaster.Application;
 using ExamMaster.Persistence;
 using ExamMaster.Domain;
+using ExamMaster.Service;
 using Microsoft.AspNetCore.Diagnostics;
 using AVMS.Application.Middleware;
 
@@ -17,7 +18,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationDependencies()
                 .AddDomainDependencies()
                 .AddPersistenceDependencies(builder.Configuration)
-                .AddRegistrationModuleDependencies(builder.Configuration);
+                .AddRegistrationModuleDependencies(builder.Configuration)
+                .AddServiceModuleDependencies(builder.Configuration);
 #endregion
 
 

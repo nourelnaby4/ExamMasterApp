@@ -11,10 +11,12 @@ namespace ExamMaster.Application.Features.Exams.Queries.Models.Requests
 {
     public class ExamGetAllRequest : IRequest<Response<IEnumerable< ExamGetResponse>>>
     {
-        //public int ExamId { get; private set; }
-        //public ExamGetAllRequest(int examID) 
-        //{
-        //    ExamId = examID;
-        //}
+        public int SubjectId { get; private set; }
+        public int? LevelId { get; private set; }
+        public ExamGetAllRequest(int subjectId, int? levelId)
+        {
+            SubjectId = subjectId;
+            LevelId = levelId;
+        }
     }
 }

@@ -17,6 +17,7 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.1" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
+    <PackageReference Include="StackExchange.Redis" Version="2.7.10" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
   </ItemGroup>
 
@@ -26,7 +27,7 @@
 
   <ItemGroup>
     <Folder Include="Features\Exams\Queries\Validator\" />
-    <Folder Include="Features\Questions\MultiChoices\Queries\" />
+    <Folder Include="Features\Questions\Queries\Validator\" />
     <Folder Include="Features\Subjects\Command\Model\Responses\" />
   </ItemGroup>
 
