@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using ExamMaster.Application.Common.Consts;
-using ExamMaster.Application.Features.Questions.Commands.MultiChoices.Models.Requsets;
-using ExamMaster.Application.Features.Questions.Commands.MultiChoices.Models.ViewModel;
+using ExamMaster.Application.Common.Enums.Constents;
+using ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.Requsets;
+using ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.ViewModel;
 using ExamMaster.Domain.Entities;
 using MediatR;
 using System;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Features.Questions.Commands.MultiChoices.Mapping
+namespace ExamMaster.Application.Features.Questions.MultiChoice.Commands.Mapping
 {
     public class MultiChoiceMapping : Profile
     {

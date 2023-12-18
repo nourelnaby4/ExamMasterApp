@@ -19,6 +19,8 @@ namespace ExamMaster.Service
             #region cache in-memory
 
             var cacheExpirationMinutes = configuration.GetSection("CacheSettings").GetValue<int>("DefaultCacheExpirationMinutes");
+            services.AddScoped<ICacheService, CacheService>();
+
             //   AddMemoryCache to use private readonly IMemoryCache _memoryCache
             services.AddMemoryCache(options =>
             {
@@ -29,7 +31,6 @@ namespace ExamMaster.Service
             {
                 options.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(cacheExpirationMinutes); // Set default expiration time to 30 minutes
             });
-            services.AddSingleton<ICacheService, CacheService>();
 
             #endregion
             return services;

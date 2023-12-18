@@ -1,6 +1,6 @@
 ﻿using AVMS.Application.Common.Model;
 using ExamMaster.Application.Features.Exams.Queries.Models.Requests;
-using ExamMaster.Application.Features.Questions.Commands.MultiChoices.Models.ViewModel;
+using ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.ViewModel;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Features.Questions.Commands.MultiChoices.Models.Requsets
+namespace ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.Requsets
 {
     public class MultiChoiceCreateRequest : IRequest<Response<string>>
     {

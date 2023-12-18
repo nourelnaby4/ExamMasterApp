@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace ExamMaster.Persistence
 {
@@ -20,7 +21,8 @@ namespace ExamMaster.Persistence
             services.AddDbContext<ApplicationDbContext>(option =>
             option.UseSqlServer(connectioString));
 
-
+            services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             #region RegitrationConfig
             services.AddIdentity<ApplicationUser, IdentityRole>(option =>

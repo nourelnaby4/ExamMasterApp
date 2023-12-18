@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ExamMaster.Application.Features.Questions.Queries.Models.Response;
+using ExamMaster.Application.Features.Questions.MultiChoice.Queries.Models.Response;
 using ExamMaster.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Features.Questions.Queries.Mapping
+namespace ExamMaster.Application.Features.Questions.MultiChoice.Queries.Mapping
 {
     public class QuestionGetMapping : Profile
     {

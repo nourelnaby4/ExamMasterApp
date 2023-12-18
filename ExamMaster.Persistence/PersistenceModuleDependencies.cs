@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace ExamMaster.Persistence
 {
@@ -18,7 +19,9 @@ namespace ExamMaster.Persistence
     {
         public static IServiceCollection AddPersistenceDependencies(this IServiceCollection services, IConfiguration configuration)
         {
+            
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IQuestionsRepo, QuestionRepo>();
             services.AddScoped(typeof(IBaseRepo<>), typeof(BaseRepo<>));
             return services;
         }

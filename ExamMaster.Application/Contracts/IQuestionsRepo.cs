@@ -1,4 +1,5 @@
-﻿using ExamMaster.Domain.Entities;
+﻿using ExamMaster.Application.Features.Questions.MultiChoice.Queries.Models.Response;
+using ExamMaster.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace ExamMaster.Application.Contracts
     {
         IQueryable<Question> GetQueryable(int examId);
         Task<Question> GetMultiChoiceById(int questionId);
+        Task<IEnumerable<QuestionGroupResponse>> GetQuestions(string key, ICacheService cache);
     }
 }

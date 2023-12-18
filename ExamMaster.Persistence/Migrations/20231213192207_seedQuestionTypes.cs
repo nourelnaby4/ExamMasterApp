@@ -1,4 +1,4 @@
-﻿using ExamMaster.Application.Common.Consts;
+﻿using ExamMaster.Application.Common.Enums.Constents;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable

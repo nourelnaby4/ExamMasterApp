@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Features.Questions.Queries.Models.Response
+namespace ExamMaster.Application.Features.Questions.MultiChoice.Queries.Models.Response
 {
     public class QuestionGetResponse
     {

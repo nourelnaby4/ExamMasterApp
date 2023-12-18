@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AVMS.Application.Common.Model;
 using ExamMaster.Application.Contracts;
-using ExamMaster.Application.Features.Questions.Commands.MultiChoices.Models.Requsets;
+using ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.Requsets;
 using ExamMaster.Domain.Entities;
 using MediatR;
 using System;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Features.Questions.Commands.MultiChoices.Handerls
+namespace ExamMaster.Application.Features.Questions.MultiChoice.Commands.Handerls
 {
     public class MultiChoiceCommandHandler : ResponseHandler,
                                              IRequestHandler<MultiChoiceCreateRequest, Response<string>>,
@@ -63,9 +63,9 @@ namespace ExamMaster.Application.Features.Questions.Commands.MultiChoices.Hander
             var trans = _repo.BeginTransaction();
             try
             {
-                var question  = await _repo.Question.GetMultiChoiceById(request.QuestionId);
+                var question = await _repo.Question.GetMultiChoiceById(request.QuestionId);
                 var questionMapping = _mapper.Map(request, question);
-                 _repo.Question.Update(questionMapping);
+                _repo.Question.Update(questionMapping);
                 foreach (var choice in questionMapping.Choices)
                 {
                     choice.Question = question;

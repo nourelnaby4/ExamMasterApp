@@ -8,9 +8,10 @@ namespace ExamMaster.Application.Contracts
 {
     public interface ICacheService
     {
-        TItem Get<TItem>(string key);
-        void Set<TItem>(string key, TItem value);
-        void Update<TItem>(string key, TItem value);
-        void Remove(string key);
+       Task< T >Get<T>(string key, Func<Task<T>> GetFromDB);
+        void Set<T>(string key, T value);
+        Task<T> Get<T>(string key);
+        void Update<T>(string key, T value);
+        Task Remove(string key);
     }
 }

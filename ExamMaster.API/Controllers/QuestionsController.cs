@@ -1,6 +1,6 @@
 ﻿using ExamMaster.API.Base;
-using ExamMaster.Application.Features.Questions.Commands.MultiChoices.Models.Requsets;
-using ExamMaster.Application.Features.Questions.Queries.Models.Requests;
+using ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.Requsets;
+using ExamMaster.Application.Features.Questions.MultiChoice.Queries.Models.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +31,13 @@ namespace ExamMaster.API.Controllers
             var result = await _mediator.Send(request);
             return GetResponse(result);
         }
+        [HttpGet("GetGroup")]
+        public async Task<IActionResult> GetGroup([FromQuery] QuestionGroupingRequest request)
+        {
+            var result = await _mediator.Send(request);
+            return GetResponse(result);
+        }
+
         [HttpPost("MultiChoice")]
         public async Task<IActionResult> Create(MultiChoiceCreateRequest request)
         {

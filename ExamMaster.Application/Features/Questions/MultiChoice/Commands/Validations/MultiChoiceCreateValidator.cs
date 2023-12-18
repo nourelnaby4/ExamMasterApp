@@ -1,5 +1,5 @@
 ﻿using ExamMaster.Application.Contracts;
-using ExamMaster.Application.Features.Questions.Commands.MultiChoices.Models.Requsets;
+using ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.Requsets;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Features.Questions.Commands.MultiChoices.Validations
+namespace ExamMaster.Application.Features.Questions.MultiChoice.Commands.Validations
 {
     public class MultiChoiceCreateValidator : AbstractValidator<MultiChoiceCreateRequest>
     {
@@ -42,7 +42,7 @@ namespace ExamMaster.Application.Features.Questions.Commands.MultiChoices.Valida
         private void ApplyCustomCreateMultiChoice()
         {
             RuleFor(x => x.ExamId)
-            .MustAsync(async (key, CancellationTokenSource) =>! await _repo.Exam.IsExistAsync(x=>x.Id ==key)).WithMessage("Exam Id is not Exist");
+            .MustAsync(async (key, CancellationTokenSource) => !await _repo.Exam.IsExistAsync(x => x.Id == key)).WithMessage("Exam Id is not Exist");
 
             RuleFor(x => x.Answers)
                 .Must((key, CancellationTokenSource) => key.Answers.Count() == 4).WithMessage("choies count must be 4 choise only");

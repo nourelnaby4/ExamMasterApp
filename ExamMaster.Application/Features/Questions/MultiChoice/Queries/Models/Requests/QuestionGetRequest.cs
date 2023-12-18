@@ -1,6 +1,6 @@
 ﻿using AVMS.Application.Common.Model;
 using ExamMaster.Application.Common.Model;
-using ExamMaster.Application.Features.Questions.Queries.Models.Response;
+using ExamMaster.Application.Features.Questions.MultiChoice.Queries.Models.Response;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Features.Questions.Queries.Models.Requests
+namespace ExamMaster.Application.Features.Questions.MultiChoice.Queries.Models.Requests
 {
     public class QuestionGetRequest : IRequest<Response<PaginatedResult<QuestionGetResponse>>>
     {

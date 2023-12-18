@@ -1,4 +1,4 @@
-﻿using ExamMaster.Application.Features.Questions.Commands.MultiChoices.Models.Requsets;
+﻿using ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.Requsets;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Features.Questions.Commands.MultiChoices.Validations
+namespace ExamMaster.Application.Features.Questions.MultiChoice.Commands.Validations
 {
     public class MultiChoiceEditValidator : AbstractValidator<MultiChoiceEditRequest>
     {
