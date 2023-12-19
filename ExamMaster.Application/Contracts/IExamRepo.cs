@@ -1,4 +1,5 @@
-﻿using ExamMaster.Domain.Entities;
+﻿using ExamMaster.Application.Features.Exams.Queries.Models.Responses;
+using ExamMaster.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace ExamMaster.Application.Contracts
     {
          Task<IEnumerable<Exam>> GetAsync(int subjectId);
          Task<IEnumerable<Exam>> GetAsync(int subjectId,int? levelId);
+        Task<IEnumerable<ExamQuestionGroupResponse>> GetQuestions(int examId, string key);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ExamMaster.Application.Contracts;
+using ExamMaster.Application.Features.Exams.Queries.Models.Responses;
 using ExamMaster.Domain.Entities;
 using ExamMaster.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +14,12 @@ namespace ExamMaster.Persistence.Repositories
     public class ExamRepo : BaseRepo<Exam>, IExamRepo
     {
         private ApplicationDbContext _context;
-        public ExamRepo(ApplicationDbContext context) : base(context)
+        private readonly ICacheService _cacheService;
+
+        public ExamRepo(ApplicationDbContext context, ICacheService cacheService) : base(context)
         {
             _context = context;
+            _cacheService = cacheService;
         }
         public async Task<IEnumerable< Exam>> GetAsync(int subjectId)
         {
@@ -38,5 +42,32 @@ namespace ExamMaster.Persistence.Repositories
                                       .Include(x => x.Subject)
                                       .SingleOrDefaultAsync();
         }
+        public async Task<IEnumerable<ExamQuestionGroupResponse>> GetQuestions(int examId, string key)
+        {
+
+
+            var groupedQuestions = _context.Exam
+        .Where(x => x.Id == 5)
+        .SelectMany(x => x.Questions)
+        .Include(x => x.QuestionType)
+        .Include(x => x.Choices)
+        .GroupBy(x => x.QuestionType.TypeName)
+        .Select(e => new ExamQuestionGroupResponse
+        {
+            QuestionTypeName = e.Key,
+            Questions = e.ToList()
+        });
+
+
+            var result = await _cacheService.Get<IEnumerable<ExamQuestionGroupResponse>>(key);
+            if (result is null)
+            {
+                result = await groupedQuestions.ToListAsync();
+                _cacheService.Set(key, result);
+            }
+
+            return result;
+        }
+
     }
 }

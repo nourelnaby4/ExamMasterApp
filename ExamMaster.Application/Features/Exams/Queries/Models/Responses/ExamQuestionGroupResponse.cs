@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Features.Questions.MultiChoice.Queries.Models.Response
+namespace ExamMaster.Application.Features.Exams.Queries.Models.Responses
 {
-    public class QuestionGroupResponse
+    public class ExamQuestionGroupResponse
     {
-        public QuestionGroupResponse() {
-            Questions=new HashSet<Question>();
+        public ExamQuestionGroupResponse()
+        {
+            Questions = new HashSet<Question>();
         }
         public string QuestionTypeName { get; set; }
         public ICollection<Question> Questions { get; set; }

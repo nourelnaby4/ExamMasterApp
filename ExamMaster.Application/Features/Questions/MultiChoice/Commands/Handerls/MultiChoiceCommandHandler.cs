@@ -20,14 +20,16 @@ namespace ExamMaster.Application.Features.Questions.MultiChoice.Commands.Handerl
         #region fields
         private readonly IUnitOfWork _repo;
         private readonly IMapper _mapper;
+        private readonly ICacheService _cacheService;
         #endregion
 
 
         #region constructor
-        public MultiChoiceCommandHandler(IUnitOfWork repo, IMapper mapper)
+        public MultiChoiceCommandHandler(IUnitOfWork repo, IMapper mapper, ICacheService cacheService)
         {
             _repo = repo;
             _mapper = mapper;
+            _cacheService = cacheService;
         }
         #endregion
 

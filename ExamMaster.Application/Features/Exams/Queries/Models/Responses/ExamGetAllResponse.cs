@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExamMaster.Application.Features.Exams.Queries.Models.Responses
 {
-    public class ExamGetResponse
+    public class ExamGetAllResponse
     {
         public int ExamId { get; set; }
         public string SubjectName { get; set; }

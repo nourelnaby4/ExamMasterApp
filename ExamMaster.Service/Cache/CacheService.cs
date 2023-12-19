@@ -17,12 +17,10 @@ namespace ExamMaster.Service.Cache
     {
         private readonly IMemoryCache _memoryCache;
         private readonly IConfiguration _configuration;
-        private readonly IUnitOfWork _repo;
 
-        public CacheService(IMemoryCache memoryCache, IUnitOfWork repo)
+        public CacheService(IMemoryCache memoryCache)
         {
             _memoryCache = memoryCache;
-            _repo = repo;
         }
 
         public async Task<T> Get<T>(string key, Func<Task<T>> GetFromDB)

@@ -1,5 +1,6 @@
 ﻿using AVMS.Application.Common.Model;
 using ExamMaster.Application.Features.Exams.Queries.Models.Responses;
+using ExamMaster.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,8 @@ using System.Threading.Tasks;
 
 namespace ExamMaster.Application.Features.Exams.Queries.Models.Requests
 {
-    public class ExamGetAllRequest : IRequest<Response<IEnumerable<ExamGetAllResponse>>>
+    public class ExamQuestionGroupingRequest : IRequest<Response<IEnumerable<ExamQuestionGroupResponse>>>
     {
-        public int SubjectId { get;  set; }
-        public int? LevelId { get;  set; }
+        public int ExamId { get; set; }
     }
 }

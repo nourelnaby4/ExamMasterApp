@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <Folder Include="Features\Exams\Queries\Validator\" />
-    <Folder Include="Features\Questions\MultiChoice\Queries\Validator\" />
     <Folder Include="Features\Subjects\Command\Model\Responses\" />
   </ItemGroup>
 

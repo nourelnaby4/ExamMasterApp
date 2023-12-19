@@ -1,5 +1,5 @@
 ﻿using ExamMaster.Application.Contracts;
-using ExamMaster.Application.Features.Questions.MultiChoice.Queries.Models.Response;
+using ExamMaster.Application.Features.Exams.Queries.Models.Responses;
 using ExamMaster.Domain.Entities;
 using ExamMaster.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
@@ -27,9 +27,14 @@ namespace ExamMaster.Persistence.Repositories
 
 
         #region actions
-        public  Task<Question> AddAsync(Question entity, ICacheService cache)
+        public override Task<Question> AddAsync(Question entity)
         {
            throw new NotImplementedException();
+        }
+        public override Question Update(Question entity)
+        {
+            throw new NotImplementedException();
+
         }
         public IQueryable<Question> GetQueryable(int examId)
         {
@@ -49,33 +54,8 @@ namespace ExamMaster.Persistence.Repositories
      
 
 
-        public async Task<IEnumerable<QuestionGroupResponse>> GetQuestions( string key, ICacheService cache)
-        {
-
-
-            var groupedQuestions = _context.Exam
-        .Where(x => x.Id == 5)
-        .SelectMany(x => x.Questions)
-        .Include(x => x.QuestionType)
-        .Include(x => x.Choices)
-        .GroupBy(x => x.QuestionType.TypeName)
-        .Select(e => new QuestionGroupResponse
-        {
-            QuestionTypeName = e.Key,
-            Questions = e.ToList()
-        });
-
-
-            //var result = await cache.Get<IEnumerable<QuestionGroupResponse>>(key);
-            //if(result is null)
-            //{
-            //    result =await groupedQuestions.ToListAsync();
-            //     cache.Set(key, result);
-            //}
-           
-            //return result;
-            return await groupedQuestions.ToListAsync();
-        }
+       
+        
         #endregion
 
 

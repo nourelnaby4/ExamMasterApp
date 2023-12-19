@@ -53,13 +53,13 @@ namespace ExamMaster.Persistence.Repositories
             return entity;
         }
 
-        public T Update(T entity)
+        public virtual T Update(T entity)
         {
             _context.Set<T>().Update(entity);
             return entity;
 
         }
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
         }

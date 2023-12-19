@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿﻿using AutoMapper;
 using AVMS.Application.Common.Model;
 using ExamMaster.Application.Contracts;
 using ExamMaster.Application.Features.Exams.Queries.Models.Requests;
@@ -13,8 +13,10 @@ using System.Threading.Tasks;
 namespace ExamMaster.Application.Features.Exams.Queries.Handler
 {
     public class EaxmQueryHandler : ResponseHandler,
-                                     IRequestHandler<ExamGetAllRequest, Response<IEnumerable<ExamGetResponse>>>,
-                                     IRequestHandler<ExamGetByIdRequest, Response<ExamGetResponse>>
+                                     IRequestHandler<ExamGetAllRequest, Response<IEnumerable<ExamGetAllResponse>>>,
+                                     IRequestHandler<ExamGetByIdRequest, Response<ExamGetAllResponse>>,
+                                     IRequestHandler<ExamQuestionGroupingRequest, Response<IEnumerable<ExamQuestionGroupResponse>>>
+
     {
 
         #region fields
@@ -35,26 +37,33 @@ namespace ExamMaster.Application.Features.Exams.Queries.Handler
 
         #region actions
 
-        public async Task<Response<IEnumerable<ExamGetResponse>>> Handle(ExamGetAllRequest request, CancellationToken cancellationToken)
+        public async Task<Response<IEnumerable<ExamGetAllResponse>>> Handle(ExamGetAllRequest request, CancellationToken cancellationToken)
         {
             var exams = request.LevelId is null? await _repo.Exam.GetAsync(request.SubjectId)
                                                : await _repo.Exam.GetAsync(request.SubjectId,request.LevelId);
 
 
-            var mapping = _mapper.Map<IEnumerable<ExamGetResponse>>(exams);
+            var mapping = _mapper.Map<IEnumerable<ExamGetAllResponse>>(exams);
             return Success(mapping);
         }
 
-        public async Task<Response<ExamGetResponse>> Handle(ExamGetByIdRequest request, CancellationToken cancellationToken)
+        public async Task<Response<ExamGetAllResponse>> Handle(ExamGetByIdRequest request, CancellationToken cancellationToken)
         {
             var exams = await _repo.Exam.GetByIdAsync(request.Id);
             if (exams == null)
             {
-                return NotFound<ExamGetResponse>("Exam not found");
+                return NotFound<ExamGetAllResponse>("Exam not found");
             }
-            var mapping = _mapper.Map<ExamGetResponse>(exams);
+            var mapping = _mapper.Map<ExamGetAllResponse>(exams);
             return Success(mapping);
         }
+
+        public async Task<Response<IEnumerable<ExamQuestionGroupResponse>>> Handle(ExamQuestionGroupingRequest request, CancellationToken cancellationToken)
+        {
+            var Questions = await _repo.Exam.GetQuestions(request.ExamId, $"Questions-Exam-{request.ExamId}");
+            return Success(Questions);
+        }
+
         #endregion
 
 

@@ -27,18 +27,18 @@ namespace ExamMaster.API.Controllers
 
 
         #region actions
-        [HttpGet("get-byId")]
-        public async Task<IActionResult> Get([FromQuery] int ExamId)
+     
+        [HttpGet("get-all")]
+        public async Task<IActionResult> GetAll([FromQuery] ExamGetAllRequest request)
         {
 
-            var result = await _mediator.Send(new ExamGetByIdRequest(ExamId));
+            var result = await _mediator.Send(request);
             return GetResponse(result);
         }
-        [HttpGet("get-all")]
-        public async Task<IActionResult> GetAll([FromQuery] int subjectId,int? levelId)
+        [HttpGet("get-questions")]
+        public async Task<IActionResult> GetQuestions([FromQuery] ExamQuestionGroupingRequest request)
         {
-
-            var result = await _mediator.Send(new ExamGetAllRequest(subjectId,levelId));
+            var result = await _mediator.Send(request);
             return GetResponse(result);
         }
 

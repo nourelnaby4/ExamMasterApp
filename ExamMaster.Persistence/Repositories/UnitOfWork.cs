@@ -22,16 +22,15 @@ namespace ExamMaster.Persistence.Repositories
         #endregion
 
         #region constructors
-        public UnitOfWork(ApplicationDbContext context)
+        public UnitOfWork(ApplicationDbContext context, ICacheService cacheService)
         {
             _context = context;
             Subject = new SubjectRepo(_context);
             Level = new LevelRepo(_context);
             SubjectLevel = new SubjectLevelRepo(_context);
-            Exam = new ExamRepo(_context);
-            Question= new QuestionRepo(_context);
+            Exam = new ExamRepo(_context, cacheService);
+            Question = new QuestionRepo(_context);
             Chioce = new ChoiceRepo(_context);
-
         }
         #endregion
 

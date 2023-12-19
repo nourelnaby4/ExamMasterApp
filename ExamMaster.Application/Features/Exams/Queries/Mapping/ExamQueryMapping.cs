@@ -18,7 +18,7 @@ namespace ExamMaster.Application.Features.Exams.Queries.Mapping
 
         public void GetExam()
         {
-            CreateMap<Exam, ExamGetResponse>()
+            CreateMap<Exam, ExamGetAllResponse>()
                 .ForMember(dest => dest.LevelName, options => options.MapFrom(src => src.Level.Name))
                 .ForMember(dest => dest.SubjectName, options => options.MapFrom(src => src.Subject.Name))
                 .ForMember(dest => dest.ExamId, options => options.MapFrom(src => src.Id))
