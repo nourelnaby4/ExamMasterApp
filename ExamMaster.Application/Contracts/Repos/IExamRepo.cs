@@ -12,9 +12,8 @@ namespace ExamMaster.Application.Contracts.Repos
 {
     public interface IExamRepo : IBaseRepo<Exam>
     {
-        Task<IEnumerable<Exam>> GetAsync(int subjectId);
-        Task<IEnumerable<Exam>> GetAsync(int subjectId, int? levelId);
-        Task<IEnumerable<ExamQuestionGroupResponse>> GetQuestions(int examId, string key);
-        Task<IEnumerable<QuestionsChoiceCorrectAnswer>> GetMultiChoiceAnswer(int examId, string Key);
+        Task<IEnumerable<Exam>> GetAsync(int subjectId, int levelId);
+        Task<IEnumerable<ExamQuestionGroupResponse>> GetQuestions(int examId);
+        Task<IEnumerable<QuestionsChoiceCorrectAnswer>> GetMultiChoiceAnswer(int examId);
     }
 }

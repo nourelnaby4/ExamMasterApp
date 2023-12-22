@@ -85,7 +85,7 @@ namespace ExamMaster.Application.Features.Exams.Commands.Handler
                 return BadRequest<StudentExamAnswerResponse>("Choice Answer not Valid!");
             }
 
-            var multiChoiceModelAnswer = await _repo.Exam.GetMultiChoiceAnswer(request.ExamId, $"{nameof(CachedKey.ExamQuestionAnswer)}-{request.ExamId}");
+            var multiChoiceModelAnswer = await _repo.Exam.GetMultiChoiceAnswer(request.ExamId);
             var exam = await _repo.Exam.GetByIdAsync(request.ExamId);
             var resultTotalPoint = _examCalculator.CalculateTotalPoint(studentChoiceAnswers, multiChoiceModelAnswer);
             var ScoreRate = _examCalculator.CalculateStudentScoreRate(exam.ExamSuccessRate, resultTotalPoint, exam.TotalPoints);

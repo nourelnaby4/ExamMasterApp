@@ -9,7 +9,7 @@ namespace ExamMaster.Application.Common.Enums.Constents
     public enum CachedKey
     {
         None,
-        ExamQuestion,
+        QuestionsExam,
         ExamQuestionAnswer,
     }
 }

@@ -1,4 +1,5 @@
-﻿using ExamMaster.Application.Common.Enums.Constents;
+﻿using Azure.Core;
+using ExamMaster.Application.Common.Enums.Constents;
 using ExamMaster.Application.Contracts.IServices;
 using ExamMaster.Application.Contracts.Repos;
 using ExamMaster.Application.Features.Exams.Queries.Models.Responses;
@@ -6,6 +7,7 @@ using ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.View
 using ExamMaster.Application.Features.Questions.MultiChoice.Queries.Models.Response;
 using ExamMaster.Domain.Entities;
 using ExamMaster.Persistence.Context;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
@@ -26,6 +28,7 @@ namespace ExamMaster.Persistence.Repositories
             _context = context;
             _cacheService = cacheService;
         }
+      
         public async Task<IEnumerable<Exam>> GetAsync(int subjectId)
         {
             return await _context.Exam.Where(x => x.SubjectId == subjectId)
@@ -33,7 +36,7 @@ namespace ExamMaster.Persistence.Repositories
                                        .Include(x => x.Subject)
                                        .ToListAsync();
         }
-        public async Task<IEnumerable<Exam>> GetAsync(int subjectId, int? levelId)
+        public async Task<IEnumerable<Exam>> GetAsync(int subjectId, int levelId)
         {
             return await _context.Exam.Where(x => x.SubjectId == subjectId && x.LevelId == levelId)
                                       .Include(x => x.Level)
@@ -49,8 +52,9 @@ namespace ExamMaster.Persistence.Repositories
         }
 
 
-        public async Task<IEnumerable<ExamQuestionGroupResponse>> GetQuestions(int examId, string key)
+        public async Task<IEnumerable<ExamQuestionGroupResponse>> GetQuestions(int examId)
         {
+            string key = $"{nameof(CachedKey.ExamQuestionAnswer)}-{examId}";
             var result = await _cacheService.Get<IEnumerable<ExamQuestionGroupResponse>>(key);
             if (result is null)
             {
@@ -70,9 +74,10 @@ namespace ExamMaster.Persistence.Repositories
             return result;
         }
 
-        public async Task<IEnumerable<QuestionsChoiceCorrectAnswer>> GetMultiChoiceAnswer(int examId, string Key)
+        public async Task<IEnumerable<QuestionsChoiceCorrectAnswer>> GetMultiChoiceAnswer(int examId)
         {
-            var result = await _cacheService.Get<IEnumerable<QuestionsChoiceCorrectAnswer>>(Key);
+            string key = $"{nameof(CachedKey.QuestionsExam)}-{examId}";
+            var result = await _cacheService.Get<IEnumerable<QuestionsChoiceCorrectAnswer>>(key);
             if (result is null)
             {
                 var QueriableAnswer = from exam in _context.Exam

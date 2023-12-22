@@ -1,4 +1,6 @@
-﻿using ExamMaster.Application.Contracts.Repos;
+﻿using ExamMaster.Application.Common.Enums.Constents;
+using ExamMaster.Application.Contracts.IServices;
+using ExamMaster.Application.Contracts.Repos;
 using ExamMaster.Application.Features.Exams.Queries.Models.Responses;
 using ExamMaster.Domain.Entities;
 using ExamMaster.Persistence.Context;
@@ -15,19 +17,36 @@ namespace ExamMaster.Persistence.Repositories
     {
         #region fields
         private readonly ApplicationDbContext _context;
+        private readonly ICacheService _cacheService;
         #endregion
 
 
         #region constructor
-        public QuestionRepo(ApplicationDbContext context) : base(context)
+        public QuestionRepo(ApplicationDbContext context, ICacheService cacheService) : base(context)
         {
             _context = context;
+            _cacheService = cacheService;
         }
         #endregion
 
 
         #region actions
-       
+
+        public override Task<Question> AddAsync(Question entity)
+        {
+            ClearQuestionFormCacheMemory();
+            return base.AddAsync(entity);
+        }
+        public override Question Update(Question entity)
+        {
+            ClearQuestionFormCacheMemory();
+            return base.Update(entity);
+        }
+        public override void Delete(Question entity)
+        {
+            ClearQuestionFormCacheMemory();
+            base.Delete(entity);
+        }
         public IQueryable<Question> GetQueryable(int examId)
         {
             return _context.Questions.Where(x => x.ExamId == examId)
@@ -42,13 +61,11 @@ namespace ExamMaster.Persistence.Repositories
                                            .Include(x => x.Choices)
                                            .SingleOrDefaultAsync();
         }
-
-   
-     
-
-
-       
-        
+        public void ClearQuestionFormCacheMemory()
+        {
+            _cacheService.Remove($"{nameof(CachedKey.QuestionsExam)}");
+            _cacheService.Remove($"{nameof(CachedKey.ExamQuestionAnswer)}");
+        }
         #endregion
 
 

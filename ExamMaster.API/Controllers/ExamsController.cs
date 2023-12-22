@@ -43,8 +43,8 @@ namespace ExamMaster.API.Controllers
             return GetResponse(result);
         }
 
-        [HttpPost("do-exam")]
-        public async Task<IActionResult> CheckAnswer([FromBody] StudentExamAnswerRequest request)
+        [HttpPost("submit-answers")]
+        public async Task<IActionResult> SubmitAnswers([FromBody] StudentExamAnswerRequest request)
         {
 
             var result = await _mediator.Send(request);

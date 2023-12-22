@@ -31,7 +31,7 @@ namespace ExamMaster.Persistence.Repositories
             Level = new LevelRepo(_context);
             SubjectLevel = new SubjectLevelRepo(_context);
             Exam = new ExamRepo(_context, cacheService);
-            Question = new QuestionRepo(_context);
+            Question = new QuestionRepo(_context,cacheService);
             Chioce = new ChoiceRepo(_context);
             StudentExam = new StudentExamRepo(_context);
         }

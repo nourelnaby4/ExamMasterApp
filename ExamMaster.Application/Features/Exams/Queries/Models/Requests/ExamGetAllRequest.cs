@@ -12,6 +12,6 @@ namespace ExamMaster.Application.Features.Exams.Queries.Models.Requests
     public class ExamGetAllRequest : IRequest<Response<IEnumerable<ExamGetAllResponse>>>
     {
         public int SubjectId { get;  set; }
-        public int? LevelId { get;  set; }
+        public int LevelId { get;  set; }
     }
 }

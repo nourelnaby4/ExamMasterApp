@@ -42,10 +42,7 @@ namespace ExamMaster.Application.Features.Exams.Queries.Handler
 
         public async Task<Response<IEnumerable<ExamGetAllResponse>>> Handle(ExamGetAllRequest request, CancellationToken cancellationToken)
         {
-            var exams = request.LevelId is null? await _repo.Exam.GetAsync(request.SubjectId)
-                                               : await _repo.Exam.GetAsync(request.SubjectId,request.LevelId);
-
-
+            var exams =  await _repo.Exam.GetAsync(request.SubjectId,request.LevelId);
             var mapping = _mapper.Map<IEnumerable<ExamGetAllResponse>>(exams);
             return Success(mapping);
         }
@@ -63,8 +60,7 @@ namespace ExamMaster.Application.Features.Exams.Queries.Handler
 
         public async Task<Response<IEnumerable<ExamQuestionGroupResponse>>> Handle(ExamQuestionGroupingRequest request, CancellationToken cancellationToken)
         {
-            var ExamQuestions = await _repo.Exam.GetQuestions(request.ExamId, $"Questions-Exam-{request.ExamId}");
-          
+            var ExamQuestions = await _repo.Exam.GetQuestions(request.ExamId);
             return Success(ExamQuestions);
         }
 
