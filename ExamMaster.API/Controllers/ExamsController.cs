@@ -1,5 +1,6 @@
-﻿using ExamMaster.API.Base;
-using ExamMaster.Application.Features.Exams.Commands.Models;
+﻿using Azure.Core;
+using ExamMaster.API.Base;
+using ExamMaster.Application.Features.Exams.Commands.Models.Requests;
 using ExamMaster.Application.Features.Exams.Queries.Models.Requests;
 using ExamMaster.Application.Features.Levels.Queries.Models.Requests;
 using MediatR;
@@ -42,6 +43,13 @@ namespace ExamMaster.API.Controllers
             return GetResponse(result);
         }
 
+        [HttpPost("do-exam")]
+        public async Task<IActionResult> CheckAnswer([FromBody] StudentExamAnswerRequest request)
+        {
+
+            var result = await _mediator.Send(request);
+            return GetResponse(result);
+        }
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] ExamCreateRequest request)
         {
@@ -49,6 +57,7 @@ namespace ExamMaster.API.Controllers
             var result = await _mediator.Send(request);
             return GetResponse(result);
         }
+     
 
         [HttpPut("edit")]
         public async Task<IActionResult> Edit([FromBody] ExamEditRequest request)

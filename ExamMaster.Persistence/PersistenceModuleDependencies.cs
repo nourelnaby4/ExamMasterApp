@@ -1,5 +1,4 @@
-﻿
-using ExamMaster.Application.Contracts;
+﻿using ExamMaster.Application.Contracts.Repos;
 using ExamMaster.Domain.Entities;
 using ExamMaster.Persistence.Context;
 using ExamMaster.Persistence.Repositories;
@@ -21,6 +20,7 @@ namespace ExamMaster.Persistence
         {
             
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IExamRepo, ExamRepo>();
             services.AddScoped<IQuestionsRepo, QuestionRepo>();
             services.AddScoped(typeof(IBaseRepo<>), typeof(BaseRepo<>));
             return services;

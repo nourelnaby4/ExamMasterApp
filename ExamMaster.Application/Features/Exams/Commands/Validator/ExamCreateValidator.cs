@@ -1,5 +1,5 @@
-﻿using ExamMaster.Application.Contracts;
-using ExamMaster.Application.Features.Exams.Commands.Models;
+﻿using ExamMaster.Application.Contracts.Repos;
+using ExamMaster.Application.Features.Exams.Commands.Models.Requests;
 using FluentValidation;
 using System;
 using System.Collections.Generic;

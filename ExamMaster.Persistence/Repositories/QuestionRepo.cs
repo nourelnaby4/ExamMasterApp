@@ -1,4 +1,4 @@
-﻿using ExamMaster.Application.Contracts;
+﻿using ExamMaster.Application.Contracts.Repos;
 using ExamMaster.Application.Features.Exams.Queries.Models.Responses;
 using ExamMaster.Domain.Entities;
 using ExamMaster.Persistence.Context;
@@ -27,15 +27,7 @@ namespace ExamMaster.Persistence.Repositories
 
 
         #region actions
-        public override Task<Question> AddAsync(Question entity)
-        {
-           throw new NotImplementedException();
-        }
-        public override Question Update(Question entity)
-        {
-            throw new NotImplementedException();
-
-        }
+       
         public IQueryable<Question> GetQueryable(int examId)
         {
             return _context.Questions.Where(x => x.ExamId == examId)
@@ -51,6 +43,7 @@ namespace ExamMaster.Persistence.Repositories
                                            .SingleOrDefaultAsync();
         }
 
+   
      
 
 

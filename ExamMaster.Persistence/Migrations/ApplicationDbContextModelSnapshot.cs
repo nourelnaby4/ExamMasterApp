@@ -135,6 +135,9 @@ namespace ExamMaster.Persistence.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("TotalPoints")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("LevelId");
@@ -229,8 +232,11 @@ namespace ExamMaster.Persistence.Migrations
                     b.Property<bool>("IsSuccess")
                         .HasColumnType("bit");
 
-                    b.Property<int>("TotalPoint")
+                    b.Property<int>("Score")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("ScoreRate")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("StudentId", "ExamId");
 

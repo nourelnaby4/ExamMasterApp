@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Contracts
+namespace ExamMaster.Application.Contracts.IServices
 {
     public interface ICacheService
     {
-       Task< T >Get<T>(string key, Func<Task<T>> GetFromDB);
+        Task<T> Get<T>(string key, Func<Task<T>> GetFromDB);
         void Set<T>(string key, T value);
         Task<T> Get<T>(string key);
         void Update<T>(string key, T value);

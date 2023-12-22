@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Contracts
+namespace ExamMaster.Application.Contracts.Repos
 {
-    public interface ISubjectRepo : IBaseRepo<Subject> 
+    public interface IChoiceRepo : IBaseRepo<Choice>
     {
     }
 }

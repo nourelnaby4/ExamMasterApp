@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Contracts
+namespace ExamMaster.Application.Contracts.Repos
 {
-    public interface ISubjectLevelRepo :IBaseRepo<SubjectLevel>
+    public interface ILevelRepo : IBaseRepo<Level>
     {
-
     }
 }

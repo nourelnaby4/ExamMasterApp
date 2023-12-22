@@ -36,7 +36,7 @@ namespace ExamMaster.Application.Features.Questions.MultiChoice.Commands.Mapping
                 .ForMember(dest => dest.Choices, option => option.MapFrom(src => ConvertToChoice(src.Answers)));
         }
 
-        private IEnumerable<Choice> ConvertToChoice(List<ChoiceViewModel> choicesModel)
+        private IEnumerable<Choice> ConvertToChoice(List<ChoiceCreateViewModel> choicesModel)
         {
             foreach (var item in choicesModel)
             {

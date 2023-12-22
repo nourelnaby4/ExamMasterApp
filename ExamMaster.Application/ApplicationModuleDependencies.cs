@@ -1,4 +1,6 @@
 ﻿using ExamMaster.Application.Behavior;
+using ExamMaster.Application.Contracts.IServices;
+using ExamMaster.Application.Features.Exams.Commands.Services;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Caching.Memory;
@@ -17,6 +19,9 @@ namespace ExamMaster.Application
             services.AddMediatR(config => config.RegisterServicesFromAssemblies(assembly));
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));   //validation behavior 
+
+            services.AddScoped<IStudentExamFactory,StudentExamFactory>();
+            services.AddScoped<IExamCalculator,ExamCalculator>();
 
 
         

@@ -16,8 +16,8 @@ namespace ExamMaster.Domain.Entities
         [Key]
         public int ExamId { get; set; }
 
-        public int TotalPoint { get; set; } = 0;
-
+        public int Score { get; set; } = 0;
+        public decimal ScoreRate { get; set; }
         public bool IsSuccess { get; set; } = false;
 
         [ForeignKey(nameof(StudentId))]

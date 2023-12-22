@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Features.Exams.Commands.Models
+namespace ExamMaster.Application.Features.Exams.Commands.Models.Requests
 {
     public class ExamDeleteRequest : IRequest<Response<string>>
     {

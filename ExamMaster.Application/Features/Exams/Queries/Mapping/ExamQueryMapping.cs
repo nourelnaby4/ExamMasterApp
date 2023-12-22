@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ExamMaster.Application.Features.Exams.Queries.Models.Responses;
+using ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.ViewModel;
 using ExamMaster.Domain.Entities;
 using System;
 using System.Collections.Generic;

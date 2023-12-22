@@ -27,6 +27,7 @@ namespace ExamMaster.Persistence.Context
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Level> Levels { get; set; }
         public DbSet<Question> Questions { get; set; }
+        public DbSet<Choice> Choice { get; set; }
         public DbSet<Exam> Exam { get; set; }
         public DbSet<SubjectLevel> SubjectLevels { get; set; }
         public DbSet<StudentExam> StudentExams { get; set; }

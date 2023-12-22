@@ -1,4 +1,5 @@
-﻿using ExamMaster.Application.Contracts;
+﻿using ExamMaster.Application.Contracts.IServices;
+using ExamMaster.Application.Contracts.Repos;
 using ExamMaster.Persistence.Context;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
@@ -18,6 +19,7 @@ namespace ExamMaster.Persistence.Repositories
         public ISubjectLevelRepo SubjectLevel { get; private set; }
         public IQuestionsRepo Question { get; private set; }
         public IChoiceRepo Chioce { get; private set; }
+        public IStudentExamRepo StudentExam { get; private set; }
         private readonly ApplicationDbContext _context;
         #endregion
 
@@ -31,6 +33,7 @@ namespace ExamMaster.Persistence.Repositories
             Exam = new ExamRepo(_context, cacheService);
             Question = new QuestionRepo(_context);
             Chioce = new ChoiceRepo(_context);
+            StudentExam = new StudentExamRepo(_context);
         }
         #endregion
 

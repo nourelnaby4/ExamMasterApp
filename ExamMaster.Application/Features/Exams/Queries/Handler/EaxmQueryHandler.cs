@@ -1,8 +1,11 @@
-﻿﻿using AutoMapper;
+﻿using AutoMapper;
 using AVMS.Application.Common.Model;
-using ExamMaster.Application.Contracts;
+using ExamMaster.Application.Common.Enums.Constents;
+using ExamMaster.Application.Contracts.Repos;
 using ExamMaster.Application.Features.Exams.Queries.Models.Requests;
 using ExamMaster.Application.Features.Exams.Queries.Models.Responses;
+using ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.ViewModel;
+using ExamMaster.Application.Features.Questions.MultiChoice.Queries.Models.Response;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -60,8 +63,9 @@ namespace ExamMaster.Application.Features.Exams.Queries.Handler
 
         public async Task<Response<IEnumerable<ExamQuestionGroupResponse>>> Handle(ExamQuestionGroupingRequest request, CancellationToken cancellationToken)
         {
-            var Questions = await _repo.Exam.GetQuestions(request.ExamId, $"Questions-Exam-{request.ExamId}");
-            return Success(Questions);
+            var ExamQuestions = await _repo.Exam.GetQuestions(request.ExamId, $"Questions-Exam-{request.ExamId}");
+          
+            return Success(ExamQuestions);
         }
 
         #endregion

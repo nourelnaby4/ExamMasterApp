@@ -1,5 +1,4 @@
-﻿using ExamMaster.Application.Contracts;
-using ExamMaster.Persistence.Context;
+﻿using ExamMaster.Persistence.Context;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using ExamMaster.Application.Contracts.Repos;
 
 namespace ExamMaster.Persistence.Repositories
 {

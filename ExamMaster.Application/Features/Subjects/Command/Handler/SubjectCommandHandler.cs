@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using AVMS.Application.Common.Model;
-using ExamMaster.Application.Contracts;
+using ExamMaster.Application.Contracts.Repos;
 using ExamMaster.Application.Features.Subjects.Command.Model.Requests;
 using ExamMaster.Domain.Entities;
 using MediatR;

@@ -1,5 +1,6 @@
 ﻿using AVMS.Application.Common.Model;
 using ExamMaster.Application.Features.Exams.Queries.Models.Responses;
+using ExamMaster.Application.Features.Questions.MultiChoice.Queries.Models.Response;
 using ExamMaster.Domain.Entities;
 using MediatR;
 using System;

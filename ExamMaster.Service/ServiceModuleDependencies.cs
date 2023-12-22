@@ -1,4 +1,4 @@
-﻿using ExamMaster.Application.Contracts;
+﻿using ExamMaster.Application.Contracts.IServices;
 using ExamMaster.Service.Cache;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;

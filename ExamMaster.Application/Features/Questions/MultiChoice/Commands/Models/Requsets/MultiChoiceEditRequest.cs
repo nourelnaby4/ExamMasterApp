@@ -14,7 +14,7 @@ namespace ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.
         public int QuestionId { get; set; }
         public string Question { get; set; }
         public int Point { get; set; } = 5;
-        public List<ChoiceViewModel> Answers { get; set; }
+        public List<ChoiceCreateViewModel> Answers { get; set; }
 
     }
 }

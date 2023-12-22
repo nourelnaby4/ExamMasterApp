@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using AVMS.Application.Common.Model;
-using ExamMaster.Application.Contracts;
+using ExamMaster.Application.Contracts.Repos;
 using ExamMaster.Application.Features.Levels.Queries.Models.Requests;
 using ExamMaster.Application.Features.Levels.Queries.Models.Response;
 using ExamMaster.Application.Features.Subjects.Queries.Models.Response;

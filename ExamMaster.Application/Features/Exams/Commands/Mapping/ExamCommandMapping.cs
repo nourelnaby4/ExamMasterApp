@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using ExamMaster.Application.Features.Exams.Commands.Models;
+using ExamMaster.Application.Features.Exams.Commands.Models.Reponse;
+using ExamMaster.Application.Features.Exams.Commands.Models.Requests;
 using ExamMaster.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace ExamMaster.Application.Features.Exams.Commands.Mapping
         {
             CreateExam();
             EditExam();
+            CreateStudentExamAnswerResponse();
         }
 
         private void CreateExam()
@@ -25,6 +27,11 @@ namespace ExamMaster.Application.Features.Exams.Commands.Mapping
         private void EditExam()
         {
             CreateMap<ExamEditRequest, Exam>();
+        }
+
+        private void CreateStudentExamAnswerResponse()
+        {
+            CreateMap<StudentExam,StudentExamAnswerResponse>().ReverseMap();
         }
     }
 }

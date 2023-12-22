@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.ViewModel
 {
-    public class ChoiceViewModel
+    public class ChoiceCreateViewModel
     {
         public string Content { get; set; }
         public bool IsCorrector { get; set; } = false;

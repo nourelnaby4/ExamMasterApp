@@ -21,6 +21,7 @@ namespace ExamMaster.Domain.Entities
         [MaxLength(50)]
         public string Title { get; set; }
 
+        public int TotalPoints { get; set; }
         [Range(0, 100, ErrorMessage = "Exam Success Rate must be between 0 and 100")]
         public decimal ExamSuccessRate { get; set; }
 

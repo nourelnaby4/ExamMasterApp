@@ -15,13 +15,13 @@ namespace ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.
         public string Question { get; private set; }
         public int ExamId { get; private set; }
         public int Point { get; private set; } = 5;
-        public List<ChoiceViewModel> Answers { get; set; }
+        public List<ChoiceCreateViewModel> Answers { get; set; }
 
 
 
 
 
-        public MultiChoiceCreateRequest(string question, List<ChoiceViewModel> answers, int examId, int point)
+        public MultiChoiceCreateRequest(string question, List<ChoiceCreateViewModel> answers, int examId, int point)
         {
             Question = question;
             Answers = answers;

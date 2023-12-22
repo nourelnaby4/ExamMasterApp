@@ -27,6 +27,15 @@
 
   <ItemGroup>
     <Folder Include="Features\Exams\Queries\Validator\" />
+    <Folder Include="Features\Students\Commands\Mapping\" />
+    <Folder Include="Features\Students\Commands\Models\Requests\" />
+    <Folder Include="Features\Students\Commands\Services\" />
+    <Folder Include="Features\Students\Commands\Validators\" />
+    <Folder Include="Features\Students\Queries\Handlers\" />
+    <Folder Include="Features\Students\Queries\Mapping\" />
+    <Folder Include="Features\Students\Queries\Models\" />
+    <Folder Include="Features\Students\Queries\Services\" />
+    <Folder Include="Features\Students\Queries\Validators\" />
     <Folder Include="Features\Subjects\Command\Model\Responses\" />
   </ItemGroup>
 

@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Contracts
+namespace ExamMaster.Application.Contracts.Repos
 {
     public interface IBaseRepo<T> where T : class
     {

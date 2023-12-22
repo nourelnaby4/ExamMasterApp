@@ -1,4 +1,4 @@
-﻿using ExamMaster.Application.Contracts;
+﻿using ExamMaster.Application.Contracts.Repos;
 using ExamMaster.Domain.Entities;
 using ExamMaster.Persistence.Context;
 using System;

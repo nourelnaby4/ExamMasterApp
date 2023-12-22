@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AVMS.Application.Common.Model;
-using ExamMaster.Application.Contracts;
+using ExamMaster.Application.Contracts.IServices;
+using ExamMaster.Application.Contracts.Repos;
 using ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.Requsets;
 using ExamMaster.Domain.Entities;
 using MediatR;
