@@ -49,7 +49,7 @@ namespace ExamMaster.Application.Features.Questions.MultiChoice.Commands.Handerl
                 {
                     choice.Question = question;
                 }
-                await _repo.Chioce.AddRangeAsync(question.Choices);
+                await _repo.Choice.AddRangeAsync(question.Choices);
                 await _repo.SaveChangesAsync();
                 trans.Commit();
                 return Created("success");
@@ -73,7 +73,7 @@ namespace ExamMaster.Application.Features.Questions.MultiChoice.Commands.Handerl
                 {
                     choice.Question = question;
                 }
-                _repo.Chioce.UpdateRange(question.Choices);
+                _repo.Choice.UpdateRange(question.Choices);
                 await _repo.SaveChangesAsync();
                 trans.Commit();
                 return EditSuccess("success");
@@ -92,7 +92,7 @@ namespace ExamMaster.Application.Features.Questions.MultiChoice.Commands.Handerl
             {
                 var question = await _repo.Question.GetMultiChoiceById(request.QuestionId);
                 _repo.Question.Delete(question);
-                _repo.Chioce.DeleteRange(question.Choices);
+                _repo.Choice.DeleteRange(question.Choices);
                 await _repo.SaveChangesAsync();
                 trans.Commit();
 

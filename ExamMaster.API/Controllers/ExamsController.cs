@@ -3,13 +3,14 @@ using ExamMaster.API.Base;
 using ExamMaster.Application.Features.Exams.Commands.Models.Requests;
 using ExamMaster.Application.Features.Exams.Queries.Models.Requests;
 using ExamMaster.Application.Features.Levels.Queries.Models.Requests;
+using ExamMaster.Domain.MetaData;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExamMaster.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(Routing.root + "/exam")]
     [ApiController]
     public class ExamsController : ControllerMain
     {
@@ -28,29 +29,29 @@ namespace ExamMaster.API.Controllers
 
 
         #region actions
-     
-        [HttpGet("get-all")]
+
+        [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] ExamGetAllRequest request)
         {
 
             var result = await _mediator.Send(request);
             return GetResponse(result);
         }
-        [HttpGet("get-questions")]
-        public async Task<IActionResult> GetQuestions([FromQuery] ExamQuestionGroupingRequest request)
+        [HttpGet("{id}/questions")]
+        public async Task<IActionResult> GetQuestions([FromRoute] int id)
         {
-            var result = await _mediator.Send(request);
+            var result = await _mediator.Send(new ExamQuestionGroupingRequest(id));
             return GetResponse(result);
         }
 
-        [HttpPost("submit-answers")]
-        public async Task<IActionResult> SubmitAnswers([FromBody] StudentExamAnswerRequest request)
+        [HttpPost("{id}/submit-answers")]
+        public async Task<IActionResult> SubmitAnswers([FromRoute] int id, [FromBody] StudentExamAnswerRequest request)
         {
-
+            if(id != request.ExamId) return BadRequest(id);
             var result = await _mediator.Send(request);
             return GetResponse(result);
         }
-        [HttpPost("create")]
+        [HttpPost]
         public async Task<IActionResult> Create([FromBody] ExamCreateRequest request)
         {
 
@@ -59,7 +60,7 @@ namespace ExamMaster.API.Controllers
         }
      
 
-        [HttpPut("edit")]
+        [HttpPut()]
         public async Task<IActionResult> Edit([FromBody] ExamEditRequest request)
         {
 
@@ -67,11 +68,11 @@ namespace ExamMaster.API.Controllers
             return GetResponse(result);
         }
 
-        [HttpDelete("delete")]
-        public async Task<IActionResult> Delete([FromQuery] int ExamId)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromQuery] int id)
         {
 
-            var result = await _mediator.Send(new ExamDeleteRequest(ExamId));
+            var result = await _mediator.Send(new ExamDeleteRequest(id));
             return GetResponse(result);
         }
         #endregion

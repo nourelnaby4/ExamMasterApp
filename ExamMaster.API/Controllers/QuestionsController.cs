@@ -1,12 +1,13 @@
 ﻿using ExamMaster.API.Base;
 using ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.Requsets;
+using ExamMaster.Domain.MetaData;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExamMaster.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(Routing.root+"/question")]
     [ApiController]
     public class QuestionsController : ControllerMain
     {
@@ -26,23 +27,23 @@ namespace ExamMaster.API.Controllers
         #region endpoints
        
 
-        [HttpPost("MultiChoice")]
+        [HttpPost("multiChoice")]
         public async Task<IActionResult> Create(MultiChoiceCreateRequest request)
         {
             var result = await _mediator.Send(request);
             return GetResponse(result);
         }
-        [HttpPut("MultiChoice")]
-        public async Task<IActionResult> Edit([FromBody] MultiChoiceEditRequest request, [FromQuery] int questionId)
+        [HttpPut("multiChoice/{id}")]
+        public async Task<IActionResult> Edit([FromRoute] int id,[FromBody] MultiChoiceEditRequest request)
         {
-            if (request.QuestionId != questionId) return BadRequest();
+            if (request.QuestionId != id) return BadRequest();
             var result = await _mediator.Send(request);
             return GetResponse(result);
         }
-        [HttpDelete("MultiChoice")]
-        public async Task<IActionResult> Delete( [FromQuery] int questionId)
+        [HttpDelete("multiChoice/{id}")]
+        public async Task<IActionResult> Delete( [FromRoute] int id)
         {
-            var result = await _mediator.Send(new MultiChoiceDeleteRequest(questionId));
+            var result = await _mediator.Send(new MultiChoiceDeleteRequest(id));
             return GetResponse(result);
         }
         #endregion

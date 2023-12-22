@@ -2,6 +2,7 @@
 using ExamMaster.API.Base;
 using ExamMaster.Application.Features.Subjects.Command.Model.Requests;
 using ExamMaster.Application.Features.Subjects.Queries.Models.Requests;
+using ExamMaster.Domain.MetaData;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExamMaster.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(Routing.root+ "/subject")]
     [ApiController]
     public class SubjectsController : ControllerMain
     {
@@ -27,15 +28,8 @@ namespace ExamMaster.API.Controllers
 
 
         #region actions
-        [HttpGet("get-byid")]
-        public async Task<IActionResult> GetById([FromQuery] int subjectId)
-        {
 
-            var result = await _mediator.Send(new SubjectGetByIdRequest(subjectId));
-            return GetResponse(result);
-        }
-
-        [HttpGet("get-all")]
+        [HttpGet()]
         public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new SubjectGetAllRequest());
@@ -43,25 +37,33 @@ namespace ExamMaster.API.Controllers
         }
 
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
+        {
+
+            var result = await _mediator.Send(new SubjectGetByIdRequest(id));
+            return GetResponse(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] SubjectCreateRequest request)
         {
             var result= await _mediator.Send(request);
             return GetResponse(result);
         }
-        [HttpPut]
-        public async Task<IActionResult> Update([FromBody] SubjectEditRequest request ,[FromQuery] int subjectId)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update([FromRoute] int id,[FromBody] SubjectEditRequest request )
         {
-            if (request.Id != subjectId) throw new ValidationException() ;
+            if (request.Id != id) throw new ValidationException() ;
             var result = await _mediator.Send(request);
             return GetResponse(result);
         }
 
-        [HttpDelete("delete")]
-        public async Task<IActionResult> Delete([FromQuery] int subjectId)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
 
-            var result = await _mediator.Send(new  SubjectDeleteRequest(subjectId));
+            var result = await _mediator.Send(new  SubjectDeleteRequest(id));
             return GetResponse(result);
         }
         #endregion

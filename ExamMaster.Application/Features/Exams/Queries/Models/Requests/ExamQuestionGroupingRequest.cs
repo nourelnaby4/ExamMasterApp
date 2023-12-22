@@ -13,6 +13,7 @@ namespace ExamMaster.Application.Features.Exams.Queries.Models.Requests
 {
     public class ExamQuestionGroupingRequest : IRequest<Response<IEnumerable<ExamQuestionGroupResponse>>>
     {
+        public ExamQuestionGroupingRequest(int examId) { ExamId = examId; }
         public int ExamId { get; set; }
     }
 }
