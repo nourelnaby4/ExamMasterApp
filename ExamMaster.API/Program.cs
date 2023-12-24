@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen();
 
 
 #region Dependencies
-builder.Services.AddApplicationDependencies()
+builder.Services.AddApplicationDependencies(builder.Configuration)
                 .AddDomainDependencies()
                 .AddPersistenceDependencies(builder.Configuration)
                 .AddRegistrationModuleDependencies(builder.Configuration)

@@ -44,8 +44,14 @@ namespace ExamMaster.Persistence.Context
             builder.Entity<QuestionType>().HasData(
                 new QuestionType { Id=1, TypeName = "Choices" }
             );
+            builder.Entity<IdentityRole>().HasData(
+               new IdentityRole { Id = Guid.NewGuid().ToString(), Name = "Student",NormalizedName="STUDENT" },
+               new IdentityRole { Id = Guid.NewGuid().ToString(), Name = "Teacher", NormalizedName = "TEACHER" }
 
-            builder.Entity<ApplicationUser>().ToTable("Users");
+               );
+
+
+           builder.Entity<ApplicationUser>().ToTable("Users");
             builder.Entity<IdentityRole>().ToTable("Roles");
             builder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims");
             builder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims");

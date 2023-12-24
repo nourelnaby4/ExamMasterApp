@@ -60,16 +60,16 @@ namespace AVMS.Application.Common.Model
             {
                 StatusCode = System.Net.HttpStatusCode.Unauthorized,
                 Succeeded = true,
-                Message = "Unauthorized",
+                Message = string.IsNullOrEmpty(message) ? "Unauthorized" : message
             };
         }
-        public Response<T> BadRequest<T>(string Message = null)
+        public Response<T> BadRequest<T>(string message = null)
         {
             return new Response<T>()
             {
                 StatusCode = System.Net.HttpStatusCode.BadRequest,
                 Succeeded = false,
-                Message = "Bad Request",
+                Message = string.IsNullOrEmpty(message) ? "Bad Request" : message
             };
         }
 
@@ -79,7 +79,7 @@ namespace AVMS.Application.Common.Model
             {
                 StatusCode = System.Net.HttpStatusCode.NotFound,
                 Succeeded = false,
-                Message = "Not Found",
+                Message = string.IsNullOrEmpty(message) ? "Not Found" : message
             };
         }
 
@@ -101,7 +101,7 @@ namespace AVMS.Application.Common.Model
             {
                 StatusCode = System.Net.HttpStatusCode.UnprocessableEntity,
                 Succeeded = false,
-                Message = "UnprocessableEntity",
+                Message = string.IsNullOrEmpty(message) ? "UnprocessableEntity" : message
             };
         }
     }
