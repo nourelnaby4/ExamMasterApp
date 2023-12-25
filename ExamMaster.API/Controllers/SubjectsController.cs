@@ -4,6 +4,7 @@ using ExamMaster.Application.Features.Subjects.Command.Model.Requests;
 using ExamMaster.Application.Features.Subjects.Queries.Models.Requests;
 using ExamMaster.Domain.MetaData;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -11,6 +12,7 @@ using System.ComponentModel.DataAnnotations;
 namespace ExamMaster.API.Controllers
 {
     [Route(Routing.root+ "/subject")]
+    [Authorize]
     [ApiController]
     public class SubjectsController : ControllerMain
     {

@@ -1,5 +1,6 @@
 ﻿using AVMS.Application.Common.Model;
 using Microsoft.AspNetCore.Mvc;
+using System.Drawing;
 using System.Net;
 
 namespace ExamMaster.API.Base
@@ -7,27 +8,17 @@ namespace ExamMaster.API.Base
 
     public class ControllerMain : ControllerBase
     {
-        public ObjectResult GetResponse<T>(Response<T> response)
-        {
-            switch (response.StatusCode)
-            {
-                case HttpStatusCode.OK:
-                    return new OkObjectResult(response);
-                case HttpStatusCode.Created:
-                    return new CreatedResult(string.Empty, response);
-                case HttpStatusCode.Unauthorized:
-                    return new UnauthorizedObjectResult(response);
-                case HttpStatusCode.BadRequest:
-                    return new BadRequestObjectResult(response);
-                case HttpStatusCode.NotFound:
-                    return new NotFoundObjectResult(response);
-                case HttpStatusCode.Accepted:
-                    return new AcceptedResult(string.Empty, response);
-                case HttpStatusCode.UnprocessableEntity:
-                    return new UnprocessableEntityObjectResult(response);
-                default:
-                    return new BadRequestObjectResult(response);
-            }
-        }
+        public ObjectResult GetResponse<T>(Response<T> response) =>
+           response.StatusCode switch
+           {
+               HttpStatusCode.OK => new OkObjectResult(response),
+               HttpStatusCode.Created => new CreatedResult(string.Empty, response),
+               HttpStatusCode.Unauthorized => new UnauthorizedObjectResult(response),
+               HttpStatusCode.BadRequest => new BadRequestObjectResult(response),
+               HttpStatusCode.NotFound => new NotFoundObjectResult(response),
+               HttpStatusCode.Accepted => new AcceptedResult(string.Empty, response),
+               HttpStatusCode.UnprocessableEntity => new UnprocessableEntityObjectResult(response),
+               _ => new BadRequestObjectResult(response)
+           };
     }
 }

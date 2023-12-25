@@ -29,7 +29,6 @@
     <Folder Include="Features\Admins\Commands\Mapping\" />
     <Folder Include="Features\Admins\Commands\Models\Response\" />
     <Folder Include="Features\Admins\Commands\Models\ViewModel\" />
-    <Folder Include="Features\Authentications\Models\ViewModels\" />
     <Folder Include="Features\Exams\Queries\Validator\" />
     <Folder Include="Features\Students\Commands\Mapping\" />
     <Folder Include="Features\Students\Commands\Models\Response\" />

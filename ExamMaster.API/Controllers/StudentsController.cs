@@ -4,6 +4,7 @@ using ExamMaster.Application.Features.Exams.Commands.Models;
 using ExamMaster.Application.Features.Students.Commands.Models.Requests;
 using ExamMaster.Domain.MetaData;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

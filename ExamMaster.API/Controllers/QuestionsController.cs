@@ -2,12 +2,14 @@
 using ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.Requsets;
 using ExamMaster.Domain.MetaData;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExamMaster.API.Controllers
 {
     [Route(Routing.root+"/question")]
+    [Authorize]
     [ApiController]
     public class QuestionsController : ControllerMain
     {

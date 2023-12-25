@@ -1,7 +1,12 @@
-﻿using ExamMaster.Application.Contracts.IServices;
+﻿using ExamMaster.Application.Common.Model;
+using ExamMaster.Application.Contracts;
+using ExamMaster.Application.Contracts.IServices;
 using ExamMaster.Application.Contracts.IServices.AuthServices;
 using ExamMaster.Service.Authentications;
 using ExamMaster.Service.Cache;
+using ExamMaster.Service.Emails;
+using ExamMaster.Service.Providers;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,6 +44,11 @@ namespace ExamMaster.Service
 
             #region AuthService
             services.AddScoped<IAuthService, AuthService>();
+            services.Configure<EmailSetting>(configuration.GetSection("EmailSetting"));
+            services.AddScoped(typeof(CodeProvider));
+            services.AddTransient<IEmailService, EmailService>();
+            services.AddScoped<IUserTokenProvider, UserTokenProvider>();
+
             #endregion
             return services;
         }

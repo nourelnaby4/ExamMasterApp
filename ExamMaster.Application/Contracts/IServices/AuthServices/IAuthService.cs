@@ -1,4 +1,5 @@
-﻿using ExamMaster.Application.Common.Model;
+﻿using AVMS.Application.Common.Model;
+using ExamMaster.Application.Common.Model;
 using ExamMaster.Application.Features.Authentications.Models.Requests;
 using ExamMaster.Domain.Entities;
 using System;
@@ -14,6 +15,9 @@ namespace ExamMaster.Application.Contracts.IServices.AuthServices
     public interface IAuthService
     {
         Task<AuthModel> SignInAsync(SignInRequest model);
+        Task<Response<string>> ForgetPasswordAsync(string email);
+        Task<Response<string>> ChangePasswordAsync(string userId, string oldPassword, string newPassword);
+        Task<Response<string>> ResetPassword(string ResetCode, string email, string newPassword);
         Task<JwtSecurityToken> CreateJwtToken(ApplicationUser user);
         Task<IEnumerable<Claim>> CreateUserClaims(ApplicationUser user);
         Task<AuthModel> CreateAuthModel(ApplicationUser user, IEnumerable<string> roles, JwtSecurityToken jwtSecurityToken);

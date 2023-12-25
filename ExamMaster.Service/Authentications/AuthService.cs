@@ -1,9 +1,12 @@
-﻿using ExamMaster.Application.Common.Enums.Constents;
+﻿using AVMS.Application.Common.Model;
+using ExamMaster.Application.Common.Enums.Constents;
 using ExamMaster.Application.Common.Model;
+using ExamMaster.Application.Contracts;
 using ExamMaster.Application.Contracts.IServices.AuthServices;
 using ExamMaster.Application.Contracts.Repos;
 using ExamMaster.Application.Features.Authentications.Models.Requests;
 using ExamMaster.Domain.Entities;
+using ExamMaster.Service.Providers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -17,16 +20,25 @@ using System.Threading.Tasks;
 
 namespace ExamMaster.Service.Authentications
 {
-    public class AuthService : IAuthService
+    public class AuthService :ResponseHandler, IAuthService
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUnitOfWork _repos;
         private readonly JWT _jwt;
+        private readonly CodeProvider _codeProvider;
+        private readonly IEmailService _emailService;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public AuthService(UserManager<ApplicationUser> userManager, IOptions<JWT> jwt, RoleManager<IdentityRole> roleManager, IUnitOfWork repos)
+        public AuthService(UserManager<ApplicationUser> userManager,
+            IOptions<JWT> jwt,
+            RoleManager<IdentityRole> roleManager,
+            CodeProvider codeProvider,
+            IEmailService emailService,
+            IUnitOfWork repos)
         {
             _userManager = userManager;
             _jwt = jwt.Value;
+            _codeProvider = codeProvider;
+            _emailService = emailService;
             _roleManager = roleManager;
             _repos = repos;
         }
@@ -49,7 +61,61 @@ namespace ExamMaster.Service.Authentications
 
 
         }
-      
+
+        public async Task<Response<string>> ChangePasswordAsync(string userId, string oldPassword, string newPassword)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) return BadRequest<string>("user not registerd");
+
+            var passwordChangeResult = await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+            if (!passwordChangeResult.Succeeded)
+            {
+                return BadRequest<string>("Failed to change password");
+            }
+
+            return Success<string>("success");
+        }
+
+
+        public async Task<Response<string>> ForgetPasswordAsync(string email)
+        {
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(email);
+
+                if (user is null) return BadRequest<string>("email is not found");
+
+                var resetToken = await _codeProvider.GenerateAsync("ResetPassword", _userManager, user);
+
+                var subject = "Password Reset Request";
+                var message = $"keep this code secured to reset your password: {resetToken}";
+
+                await _emailService.SendEmailAsync(email, subject, message);
+
+                return Success<string>("success");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest<string>(ex.Message);
+            }
+
+        }
+
+
+        public async Task<Response<string>> ResetPassword(string ResetCode, string email, string newPassword)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user is null) return BadRequest<string>("email is not found");
+
+            var vaildCode = await _codeProvider.ValidateAsync("ResetPassword", ResetCode, _userManager, user);
+            if (!vaildCode) return BadRequest<string>("email or resetCode is not valid");
+
+            var result = await _userManager.ResetPasswordAsync(user, ResetCode, newPassword);
+            if (!result.Succeeded) return BadRequest<string>("faild to reset password");
+            return Success<string>("success");
+
+        }
+
         public async Task<JwtSecurityToken> CreateJwtToken(ApplicationUser user)
         {
             var claims = await CreateUserClaims(user);

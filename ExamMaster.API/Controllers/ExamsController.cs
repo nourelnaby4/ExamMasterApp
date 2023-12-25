@@ -1,5 +1,6 @@
 ﻿using Azure.Core;
 using ExamMaster.API.Base;
+using ExamMaster.Application.Common.Enums.Constents;
 using ExamMaster.Application.Common.Model;
 using ExamMaster.Application.Features.Exams.Commands.Models.Requests;
 using ExamMaster.Application.Features.Exams.Commands.Models.ViewModels;
@@ -7,12 +8,14 @@ using ExamMaster.Application.Features.Exams.Queries.Models.Requests;
 using ExamMaster.Application.Features.Levels.Queries.Models.Requests;
 using ExamMaster.Domain.MetaData;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExamMaster.API.Controllers
 {
     [Route(Routing.root + "/exam")]
+    [Authorize]
     [ApiController]
     public class ExamsController : ControllerMain
     {
@@ -53,7 +56,7 @@ namespace ExamMaster.API.Controllers
             var result = await _mediator.Send(new ExamSubmitAnswerRequest(User,viewModel));
             return GetResponse(result);
         }
-        [HttpGet("student-marke")]
+        [HttpGet("student-marks")]
         public async Task<IActionResult> Get([FromQuery] PaginatedViewModel paginated)
         {
             var respose = await _mediator.Send(new StudnetExamMarkeGetRequest(paginated.PageNumber, paginated.PageNumber));
