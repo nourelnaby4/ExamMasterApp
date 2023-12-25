@@ -13,7 +13,7 @@ namespace ExamMaster.Application.Contracts.Repos
     public interface IExamRepo : IBaseRepo<Exam>
     {
         Task<IEnumerable<Exam>> GetAsync(int subjectId, int levelId);
-        Task<IEnumerable<ExamQuestionGroupResponse>> GetQuestions(int examId);
+        Task<IEnumerable<ExamQuestionGroupResponse>> GetExamQuestions(int examId);
         Task<IEnumerable<QuestionsChoiceCorrectAnswer>> GetMultiChoiceAnswer(int examId);
     }
 }

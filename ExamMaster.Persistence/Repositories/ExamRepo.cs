@@ -20,10 +20,10 @@ namespace ExamMaster.Persistence.Repositories
 {
     public class ExamRepo : BaseRepo<Exam>, IExamRepo
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly ICacheService _cacheService;
 
-        public ExamRepo(ApplicationDbContext context, ICacheService cacheService) : base(context)
+        public ExamRepo(ApplicationDbContext context,ICacheService cacheService) : base(context)
         {
             _context = context;
             _cacheService = cacheService;
@@ -52,7 +52,7 @@ namespace ExamMaster.Persistence.Repositories
         }
 
 
-        public async Task<IEnumerable<ExamQuestionGroupResponse>> GetQuestions(int examId)
+        public async Task<IEnumerable<ExamQuestionGroupResponse>> GetExamQuestions(int examId)
         {
             string key = $"{nameof(CachedKey.ExamQuestionAnswer)}-{examId}";
             var result = await _cacheService.Get<IEnumerable<ExamQuestionGroupResponse>>(key);
@@ -73,7 +73,6 @@ namespace ExamMaster.Persistence.Repositories
             }
             return result;
         }
-
         public async Task<IEnumerable<QuestionsChoiceCorrectAnswer>> GetMultiChoiceAnswer(int examId)
         {
             string key = $"{nameof(CachedKey.QuestionsExam)}-{examId}";

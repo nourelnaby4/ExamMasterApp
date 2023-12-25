@@ -1,6 +1,6 @@
-﻿using ExamMaster.Application.Features.Authentications.Models.Requests;
+﻿using ExamMaster.Application.Common.Model;
+using ExamMaster.Application.Features.Authentications.Models.Requests;
 using ExamMaster.Application.Features.Students.Commands.Models.Requests;
-using ExamMaster.Application.Features.Students.Commands.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +11,6 @@ namespace ExamMaster.Application.Contracts.IServices.AuthServices
 {
     public interface IAuthStudentService
     {
-        Task<StudentAuthModel> RegisterAsync(StudentRegistrationRequest registerModel);
+        Task<AuthModel> RegisterAsync(StudentRegistrationRequest registerModel);
     }
 }

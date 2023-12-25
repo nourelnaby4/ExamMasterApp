@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Features.Students.Commands.Models.ViewModel
+namespace ExamMaster.Application.Common.Model
 {
-    public class StudentAuthModel
+    public class AuthModel
     {
         public string Message { get; set; }
         public bool IsAuthenticated { get; set; }

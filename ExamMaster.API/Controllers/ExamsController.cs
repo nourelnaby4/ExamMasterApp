@@ -1,5 +1,6 @@
 ﻿using Azure.Core;
 using ExamMaster.API.Base;
+using ExamMaster.Application.Common.Model;
 using ExamMaster.Application.Features.Exams.Commands.Models.Requests;
 using ExamMaster.Application.Features.Exams.Commands.Models.ViewModels;
 using ExamMaster.Application.Features.Exams.Queries.Models.Requests;
@@ -51,6 +52,12 @@ namespace ExamMaster.API.Controllers
             if(id != viewModel.ExamId) return BadRequest(id);
             var result = await _mediator.Send(new ExamSubmitAnswerRequest(User,viewModel));
             return GetResponse(result);
+        }
+        [HttpGet("student-marke")]
+        public async Task<IActionResult> Get([FromQuery] PaginatedViewModel paginated)
+        {
+            var respose = await _mediator.Send(new StudnetExamMarkeGetRequest(paginated.PageNumber, paginated.PageNumber));
+            return GetResponse(respose);
         }
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ExamCreateRequest request)

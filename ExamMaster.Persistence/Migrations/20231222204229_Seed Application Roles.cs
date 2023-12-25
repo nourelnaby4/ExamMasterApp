@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using ExamMaster.Application.Common.Enums.Constents;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -17,8 +18,8 @@ namespace ExamMaster.Persistence.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "371f1f02-80b2-4815-abb8-b3b2c5a4ea4d", null, "Student", "STUDENT" },
-                    { "693de636-d8a8-4001-8dc7-e6b1a6fb849b", null, "Teacher", "TEACHER" }
+                    { "371f1f02-80b2-4815-abb8-b3b2c5a4ea4d", null, nameof(RoleEnum.Student), nameof(RoleEnum.Student).ToUpper() },
+                    { "693de636-d8a8-4001-8dc7-e6b1a6fb849b", null,  nameof(RoleEnum.Admin), nameof(RoleEnum.Admin).ToUpper() }
                 });
         }
 

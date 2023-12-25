@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AVMS.Application.Common.Model;
 using ExamMaster.Application.Common.Enums.Constents;
+using ExamMaster.Application.Common.Model;
 using ExamMaster.Application.Contracts.Repos;
 using ExamMaster.Application.Features.Exams.Queries.Models.Requests;
 using ExamMaster.Application.Features.Exams.Queries.Models.Responses;
@@ -18,7 +19,12 @@ namespace ExamMaster.Application.Features.Exams.Queries.Handler
     public class EaxmQueryHandler : ResponseHandler,
                                      IRequestHandler<ExamGetAllRequest, Response<IEnumerable<ExamGetAllResponse>>>,
                                      IRequestHandler<ExamGetByIdRequest, Response<ExamGetAllResponse>>,
-                                     IRequestHandler<ExamQuestionGroupingRequest, Response<IEnumerable<ExamQuestionGroupResponse>>>
+                                     IRequestHandler<ExamQuestionGroupingRequest, Response<IEnumerable<ExamQuestionGroupResponse>>>,
+                                     IRequestHandler<StudnetExamMarkeGetRequest, Response<PaginatedResult<StudentExamMarkGetRespose>>>
+
+
+
+
 
     {
 
@@ -60,8 +66,14 @@ namespace ExamMaster.Application.Features.Exams.Queries.Handler
 
         public async Task<Response<IEnumerable<ExamQuestionGroupResponse>>> Handle(ExamQuestionGroupingRequest request, CancellationToken cancellationToken)
         {
-            var ExamQuestions = await _repo.Exam.GetQuestions(request.ExamId);
+            var ExamQuestions = await _repo.Exam.GetExamQuestions(request.ExamId);
             return Success(ExamQuestions);
+        }
+
+        public async Task<Response<PaginatedResult<StudentExamMarkGetRespose>>> Handle(StudnetExamMarkeGetRequest request, CancellationToken cancellationToken)
+        {
+            var studentExam = await _repo.StudentExam.GetPaginated(request.PageNumber, request.PageSize);
+            return Success(studentExam);
         }
 
         #endregion

@@ -3,7 +3,6 @@ using ExamMaster.Application.Common.Model;
 using ExamMaster.Application.Contracts.IServices.AuthServices;
 using ExamMaster.Application.Contracts.Repos;
 using ExamMaster.Application.Features.Authentications.Models.Requests;
-using ExamMaster.Application.Features.Students.Commands.Models.ViewModel;
 using ExamMaster.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -31,7 +30,7 @@ namespace ExamMaster.Service.Authentications
             _roleManager = roleManager;
             _repos = repos;
         }
-        public async Task<StudentAuthModel> SignInAsync(SignInRequest model)
+        public async Task<AuthModel> SignInAsync(SignInRequest model)
         {
 
             var user = await _userManager.FindByNameAsync(model.Username);
@@ -39,7 +38,7 @@ namespace ExamMaster.Service.Authentications
 
             if (user is null || !await _userManager.CheckPasswordAsync(user, model.Password))
             {
-                return new StudentAuthModel { IsAuthenticated = false, Message = "Email or Password is incorrect!" };
+                return new AuthModel { IsAuthenticated = false, Message = "Username or Password is incorrect!" };
 
             }
 
@@ -87,17 +86,17 @@ namespace ExamMaster.Service.Authentications
 
             return claims;
         }
-        public async Task<StudentAuthModel> CreateAuthModel(ApplicationUser user, IEnumerable<string> roles, JwtSecurityToken jwtSecurityToken)
+        public async Task<AuthModel> CreateAuthModel(ApplicationUser user, IEnumerable<string> roles, JwtSecurityToken jwtSecurityToken)
         {
-            StudentAuthModel StudentAuthModel = new();
-            StudentAuthModel.IsAuthenticated = true;
-            StudentAuthModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
-            StudentAuthModel.Email = user.Email;
-            StudentAuthModel.Username = user.UserName;
-            StudentAuthModel.ExpiresOn = jwtSecurityToken.ValidTo;
-            StudentAuthModel.Roles = roles.ToList();
+            AuthModel authModel = new();
+            authModel.IsAuthenticated = true;
+            authModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+            authModel.Email = user.Email;
+            authModel.Username = user.UserName;
+            authModel.ExpiresOn = jwtSecurityToken.ValidTo;
+            authModel.Roles = roles.ToList();
 
-            return StudentAuthModel;
+            return authModel;
 
         }
         public string GetUserId(ClaimsPrincipal claimsPrincipal)
