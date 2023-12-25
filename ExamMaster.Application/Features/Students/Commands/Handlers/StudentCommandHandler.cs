@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AVMS.Application.Common.Model;
 using ExamMaster.Application.Common.Enums.Constents;
-using ExamMaster.Application.Contracts.IServices;
+using ExamMaster.Application.Contracts.IServices.AuthServices;
 using ExamMaster.Application.Contracts.Repos;
 using ExamMaster.Application.Features.Authentications.Models.Requests;
 using ExamMaster.Application.Features.Authentications.Models.Responses;
@@ -17,8 +17,7 @@ using System.Threading.Tasks;
 namespace ExamMaster.Application.Features.Students.Commands.Handlers
 {
     public class StudentCommandHandler : ResponseHandler,
-                                         IRequestHandler<StudentRegistrationRequest,Response<TokenModelResponse>>,
-                                         IRequestHandler<SignInRequest,Response<TokenModelResponse>>
+                                         IRequestHandler<StudentRegistrationRequest,Response<TokenModelResponse>>
     {
 
         #region fields
@@ -42,19 +41,7 @@ namespace ExamMaster.Application.Features.Students.Commands.Handlers
 
         #region handlers
 
-        public async Task<Response<TokenModelResponse>> Handle(SignInRequest request, CancellationToken cancellationToken)
-        {
-            var result = await _authService.SignInAsync(request);
-            if (!result.IsAuthenticated)
-                return BadRequest<TokenModelResponse>(result.Message);
-
-            TokenModelResponse response = new()
-            {
-                Token = result.Token,
-                ExpiresOn = result.ExpiresOn
-            };
-            return Success(response);
-        }
+       
 
         public async Task<Response<TokenModelResponse>> Handle(StudentRegistrationRequest request, CancellationToken cancellationToken)
         {

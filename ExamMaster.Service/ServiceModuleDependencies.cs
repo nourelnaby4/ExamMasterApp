@@ -1,4 +1,6 @@
 ﻿using ExamMaster.Application.Contracts.IServices;
+using ExamMaster.Application.Contracts.IServices.AuthServices;
+using ExamMaster.Service.Authentications;
 using ExamMaster.Service.Cache;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +34,11 @@ namespace ExamMaster.Service
                 options.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(cacheExpirationMinutes); // Set default expiration time to 30 minutes
             });
 
+            #endregion
+
+
+            #region AuthService
+            services.AddScoped<IAuthService, AuthService>();
             #endregion
             return services;
         }

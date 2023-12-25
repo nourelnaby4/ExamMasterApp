@@ -7,11 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamMaster.Application.Contracts.IServices
+namespace ExamMaster.Application.Contracts.IServices.AuthServices
 {
-    public interface IAuthStudentService 
+    public interface IAuthStudentService
     {
         Task<StudentAuthModel> RegisterAsync(StudentRegistrationRequest registerModel);
-        Task<StudentAuthModel> SignInAsync(SignInRequest signInModel);
     }
 }

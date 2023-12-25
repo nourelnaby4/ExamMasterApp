@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using ExamMaster.API.Base;
 using ExamMaster.Application.Features.Exams.Commands.Models.Requests;
+using ExamMaster.Application.Features.Exams.Commands.Models.ViewModels;
 using ExamMaster.Application.Features.Exams.Queries.Models.Requests;
 using ExamMaster.Application.Features.Levels.Queries.Models.Requests;
 using ExamMaster.Domain.MetaData;
@@ -45,10 +46,10 @@ namespace ExamMaster.API.Controllers
         }
 
         [HttpPost("{id}/submit-answers")]
-        public async Task<IActionResult> SubmitAnswers([FromRoute] int id, [FromBody] StudentExamAnswerRequest request)
+        public async Task<IActionResult> SubmitAnswers([FromRoute] int id, [FromBody] ExamSubmitAnswerViewModel viewModel)
         {
-            if(id != request.ExamId) return BadRequest(id);
-            var result = await _mediator.Send(request);
+            if(id != viewModel.ExamId) return BadRequest(id);
+            var result = await _mediator.Send(new ExamSubmitAnswerRequest(User,viewModel));
             return GetResponse(result);
         }
         [HttpPost]

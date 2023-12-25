@@ -26,10 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Authentications\Handler\" />
     <Folder Include="Features\Authentications\Models\ViewModels\" />
-    <Folder Include="Features\Authentications\Validators\" />
-    <Folder Include="Features\Authentications\Services\" />
     <Folder Include="Features\Exams\Queries\Validator\" />
     <Folder Include="Features\Students\Commands\Mapping\" />
     <Folder Include="Features\Students\Commands\Models\Response\" />

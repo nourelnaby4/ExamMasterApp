@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ExamMaster.Application.Features.Exams.Commands.Models.Reponse
 {
-    public class StudentExamAnswerResponse
+    public class ExamSubmitAnswerResponse
     {
         public int ExamId { get; set; }
 

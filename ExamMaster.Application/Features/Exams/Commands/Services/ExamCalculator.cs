@@ -1,5 +1,6 @@
 ﻿using ExamMaster.Application.Contracts.IServices;
 using ExamMaster.Application.Features.Exams.Commands.Models.Requests;
+using ExamMaster.Application.Features.Exams.Commands.Models.ViewModels;
 using ExamMaster.Application.Features.Questions.MultiChoice.Commands.Models.ViewModel;
 using ExamMaster.Domain.Entities;
 using System;

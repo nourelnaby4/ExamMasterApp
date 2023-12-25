@@ -13,8 +13,10 @@ namespace ExamMaster.Application.Features.Authentications.Models.Requests
 
     public class SignInRequest : IRequest<Response<TokenModelResponse>>
     {
-        [EmailAddress]
-        public string Email { get; set; }
+
+        [Required]
+        [Display(Name ="username/email")]
+        public string Username { get; set; }
 
         [Required]
         public string Password { get; set; }

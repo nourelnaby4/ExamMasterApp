@@ -1,6 +1,7 @@
 ﻿using ExamMaster.Application.Behavior;
 using ExamMaster.Application.Common.Model;
 using ExamMaster.Application.Contracts.IServices;
+using ExamMaster.Application.Contracts.IServices.AuthServices;
 using ExamMaster.Application.Features.Exams.Commands.Services;
 using ExamMaster.Application.Features.Students.Services;
 using FluentValidation;

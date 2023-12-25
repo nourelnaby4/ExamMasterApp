@@ -1,5 +1,5 @@
 ﻿using ExamMaster.Application.Common.Model;
-using ExamMaster.Application.Contracts.IServices;
+using ExamMaster.Application.Contracts.IServices.AuthServices;
 using ExamMaster.Application.Contracts.Repos;
 using ExamMaster.Application.Features.Authentications.Models.Requests;
 using ExamMaster.Application.Features.Students.Commands.Models.Requests;
@@ -21,14 +21,12 @@ namespace ExamMaster.Application.Features.Students.Services
     public class AuthStudentService : IAuthStudentService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IAuthService _authService;
         private readonly IUnitOfWork _repos;
-        private readonly JWT _jwt;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        public AuthStudentService(UserManager<ApplicationUser> userManager, IOptions<JWT> jwt, RoleManager<IdentityRole> roleManager, IUnitOfWork repos)
+        public AuthStudentService(UserManager<ApplicationUser> userManager,IAuthService authService, IUnitOfWork repos)
         {
             _userManager = userManager;
-            _jwt = jwt.Value;
-            _roleManager = roleManager;
+            _authService = authService;
             _repos = repos;
         }
 
@@ -45,14 +43,30 @@ namespace ExamMaster.Application.Features.Students.Services
             }
 
             var transaction = _repos.BeginTransaction();
+
+            var user = await CreateStudentUser(StudentRegistrationRequest);
+            var createRole = await _userManager.AddToRoleAsync(user, "Student");
+            if (!createRole.Succeeded)
+            {
+                transaction.Rollback();
+            }
+        
+            var jwtSecurityToken = await _authService.CreateJwtToken(user);
+           
+            var authModel = await _authService.CreateAuthModel(user, new string[] { "Student" }, jwtSecurityToken);
+            transaction.Commit();
+            return authModel;
+        }
+       
+       public async Task<ApplicationUser> CreateStudentUser(StudentRegistrationRequest student)
+        {
             var user = new ApplicationUser
             {
-                UserName = StudentRegistrationRequest.Username,
-                Email = StudentRegistrationRequest.Email,
+                UserName = student.Username,
+                Email = student.Email,
 
             };
-            // for hashing password
-            var result = await _userManager.CreateAsync(user, StudentRegistrationRequest.Password);
+            var result = await _userManager.CreateAsync(user, student.Password);
             if (!result.Succeeded)
             {
                 string errors = string.Empty;
@@ -60,83 +74,9 @@ namespace ExamMaster.Application.Features.Students.Services
                 {
                     errors += $"{error.Description} ,";
                 }
-                return new StudentAuthModel { Message = errors };
+                throw new InvalidDataException(errors);
             }
-
-
-            var createRole = await _userManager.AddToRoleAsync(user, "Student");
-            if (!createRole.Succeeded)
-            {
-                transaction.Rollback();
-            }
-        
-            var jwtSecurityToken = await CreateJwtToken(user);
-            var authModel= new StudentAuthModel
-            {
-                IsAuthenticated = true,
-                ExpiresOn = jwtSecurityToken.ValidTo,
-                Username = user.UserName,
-                Roles = new List<string> { "Student" },
-                Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken)
-
-
-            };
-            transaction.Commit();
-            return authModel;
-        }
-        public async Task<StudentAuthModel> SignInAsync(SignInRequest model)
-        {
-            var StudentAuthModel = new StudentAuthModel();
-
-            var user = await _userManager.FindByEmailAsync(model.Email);
-
-            if (user is null || !await _userManager.CheckPasswordAsync(user, model.Password))
-            {
-                StudentAuthModel.Message = "Email or Password is incorrect!";
-                return StudentAuthModel;
-            }
-
-            var jwtSecurityToken = await CreateJwtToken(user);
-            var rolesList = await _userManager.GetRolesAsync(user);
-
-            StudentAuthModel.IsAuthenticated = true;
-            StudentAuthModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
-            StudentAuthModel.Email = user.Email;
-            StudentAuthModel.Username = user.UserName;
-            StudentAuthModel.ExpiresOn = jwtSecurityToken.ValidTo;
-            StudentAuthModel.Roles = rolesList.ToList();
-
-            return StudentAuthModel;
-        }
-        private async Task<JwtSecurityToken> CreateJwtToken(ApplicationUser user)
-        {
-            var userClaims = await _userManager.GetClaimsAsync(user);
-            var roles = await _userManager.GetRolesAsync(user);
-            var roleClaims = new List<Claim>();
-
-            foreach (var role in roles)
-                roleClaims.Add(new Claim("roles", role));
-
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim("uid", user.Id)
-            }
-            .Union(userClaims)
-            .Union(roleClaims);
-
-            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Key));
-            var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
-            var jwtSecurityToken = new JwtSecurityToken(
-                issuer: _jwt.Issuer,
-                audience: _jwt.Audience,
-                claims: claims,
-                expires: DateTime.Now.AddDays(_jwt.DurationInDays),
-                signingCredentials: signingCredentials);
-
-            return jwtSecurityToken;
+            return user;
         }
     }
 }

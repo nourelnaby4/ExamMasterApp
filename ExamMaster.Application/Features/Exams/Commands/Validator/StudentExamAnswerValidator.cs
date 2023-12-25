@@ -1,5 +1,6 @@
 ﻿using ExamMaster.Application.Contracts.Repos;
 using ExamMaster.Application.Features.Exams.Commands.Models.Requests;
+using ExamMaster.Application.Features.Exams.Commands.Models.ViewModels;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ExamMaster.Application.Features.Exams.Commands.Validator
 {
-    public class StudentExamAnswerValidator : AbstractValidator<StudentExamAnswerRequest>
+    public class StudentExamAnswerValidator : AbstractValidator<ExamSubmitAnswerViewModel>
     {
         private readonly IExamRepo _repo;
         public StudentExamAnswerValidator(IExamRepo repo)
@@ -20,6 +21,7 @@ namespace ExamMaster.Application.Features.Exams.Commands.Validator
 
         private void ApplyValidation()
         {
+            
             RuleFor(x => x.ExamId)
                 .NotNull()
                 .NotEmpty()

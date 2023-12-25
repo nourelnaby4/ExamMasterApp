@@ -31,7 +31,7 @@ namespace ExamMaster.Application.Features.Exams.Commands.Mapping
 
         private void CreateStudentExamAnswerResponse()
         {
-            CreateMap<StudentExam,StudentExamAnswerResponse>().ReverseMap();
+            CreateMap<StudentExam,ExamSubmitAnswerResponse>().ReverseMap();
         }
     }
 }
