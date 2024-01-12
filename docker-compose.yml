@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Database=VSDB;User Id=sa;Password=NewStrongP@ssw0rd;TrustServerCertificate=True;
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "NewStrongP@ssw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "8082:1433"
+    volumes:
+      - sqlvolume:/var/opt/mssql
+
+volumes:
+  sqlvolume:
