@@ -24,18 +24,7 @@ namespace ExamMaster.Persistence
             services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
-            var serviceBuilder = services.BuildServiceProvider();
-
-            //auto update-database
-            using (var scope = serviceBuilder.CreateScope())
-            {
-                var serviceProvider = scope.ServiceProvider;
-                var context = serviceBuilder.GetRequiredService<ApplicationDbContext>();
-                context.Database.Migrate(); // Apply pending migrations
-                                            // Optionally add your database seeding method here
-            }
-
-            #region RegistrationConfig
+            #region RegitrationConfig
             services.AddIdentity<ApplicationUser, IdentityRole>(option =>
             {
                 // Password settings.

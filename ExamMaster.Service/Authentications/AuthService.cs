@@ -163,6 +163,7 @@ namespace ExamMaster.Service.Authentications
             authModel.Roles = roles.ToList();
 
             return authModel;
+           
 
         }
         public string GetUserId(ClaimsPrincipal claimsPrincipal)
